@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
     const themeIcon = themeToggle.querySelector('i');
     
-    // Default to dark theme (no localStorage)
+    // Check for saved theme preference, default to dark
     let currentTheme = 'dark';
     
     // Apply the default theme
@@ -25,57 +25,13 @@ document.addEventListener('DOMContentLoaded', function() {
             currentTheme = 'light';
         }
         
-        // Add a little animation to the button
-        themeToggle.style.transform = 'scale(0.9)';
+        // Simple button animation
+        themeToggle.style.transform = 'scale(0.95)';
         setTimeout(() => {
             themeToggle.style.transform = 'scale(1)';
-        }, 150);
+        }, 100);
     });
 });
-
-// Sakura Animation
-function createSakura() {
-    const sakuraContainer = document.querySelector('.sakura-container');
-    const sakura = document.createElement('div');
-    sakura.className = 'sakura';
-    
-    // Random horizontal position
-    sakura.style.left = Math.random() * 100 + '%';
-    
-    // Random animation duration between 8-15 seconds
-    const duration = Math.random() * 7 + 8;
-    sakura.style.animationDuration = duration + 's';
-    
-    // Random delay before starting
-    const delay = Math.random() * 5;
-    sakura.style.animationDelay = delay + 's';
-    
-    // Add some horizontal drift
-    const drift = (Math.random() - 0.5) * 100;
-    sakura.style.setProperty('--drift', drift + 'px');
-    
-    sakuraContainer.appendChild(sakura);
-    
-    // Remove sakura after animation completes
-    setTimeout(() => {
-        if (sakura.parentNode) {
-            sakura.parentNode.removeChild(sakura);
-        }
-    }, (duration + delay) * 1000);
-}
-
-// Create sakura petals at intervals
-function startSakuraAnimation() {
-    setInterval(createSakura, 2000); // Create new sakura every 2 seconds
-    
-    // Create initial batch
-    for (let i = 0; i < 5; i++) {
-        setTimeout(createSakura, i * 400);
-    }
-}
-
-// Start sakura animation when page loads
-document.addEventListener('DOMContentLoaded', startSakuraAnimation);
 
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
@@ -100,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Intersection Observer for animations on scroll
+// Simple fade-in animation on scroll
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -109,7 +65,7 @@ const observerOptions = {
 const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('animate-in');
+            entry.target.classList.add('fade-in');
         }
     });
 }, observerOptions);
@@ -123,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Add CSS for scroll animations
+// Add simple CSS for fade-in animations
 const style = document.createElement('style');
 style.textContent = `
     .project-card,
@@ -131,306 +87,284 @@ style.textContent = `
     .contact-item,
     .coming-soon {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
         transition: all 0.6s ease;
     }
     
-    .project-card.animate-in,
-    .tech-category.animate-in,
-    .contact-item.animate-in,
-    .coming-soon.animate-in {
+    .project-card.fade-in,
+    .tech-category.fade-in,
+    .contact-item.fade-in,
+    .coming-soon.fade-in {
         opacity: 1;
         transform: translateY(0);
     }
     
-    .sakura {
-        animation: sakura-fall var(--duration, 10s) linear infinite;
+    /* Simple hover effects */
+    .project-card:hover {
+        transform: translateY(-5px);
     }
     
-    @keyframes sakura-fall {
-        0% {
-            transform: translateY(-100vh) translateX(0) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) translateX(var(--drift, 0px)) rotate(360deg);
-            opacity: 0;
-        }
+    .contact-item:hover {
+        transform: translateY(-3px);
+    }
+    
+    .tech-category:hover {
+        transform: translateY(-3px);
+    }
+    
+    /* Cat animations */
+    .cat-companion {
+        animation: gentle-sway 3s ease-in-out infinite;
+    }
+    
+    @keyframes gentle-sway {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-8px) rotate(2deg); }
+    }
+    
+    .floating-cat {
+        animation: cat-float 4s ease-in-out infinite;
+    }
+    
+    @keyframes cat-float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    .cat-helper {
+        animation: cat-wiggle 2s ease-in-out infinite;
+    }
+    
+    @keyframes cat-wiggle {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
     }
 `;
 document.head.appendChild(style);
 
 // Navbar background change on scroll
-let lastScrollTop = 0;
-const navbar = document.querySelector('nav');
-
 window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('nav');
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     
     if (scrollTop > 100) {
         navbar.style.background = 'rgba(26, 26, 46, 0.98)';
         if (document.body.getAttribute('data-theme') === 'light') {
-            navbar.style.background = 'rgba(248, 250, 252, 0.98)';
+            navbar.style.background = 'rgba(255, 255, 255, 0.98)';
         }
     } else {
-        navbar.style.background = 'rgba(26, 26, 46, 0.95)';
+        navbar.style.background = 'rgba(26, 26, 46, 0.9)';
         if (document.body.getAttribute('data-theme') === 'light') {
-            navbar.style.background = 'rgba(248, 250, 252, 0.95)';
+            navbar.style.background = 'rgba(255, 255, 255, 0.9)';
         }
     }
-    
-    lastScrollTop = scrollTop;
 });
 
-// Add hover effects for tech items
-document.addEventListener('DOMContentLoaded', function() {
-    const techItems = document.querySelectorAll('.tech-item');
-    
-    techItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.05) rotateY(5deg)';
-        });
-        
-        item.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) rotateY(0deg)';
-        });
-    });
-});
-
-// Project card tilt effect
-document.addEventListener('DOMContentLoaded', function() {
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-        });
-    });
-});
-
-// Social links animation
-document.addEventListener('DOMContentLoaded', function() {
-    const socialLinks = document.querySelectorAll('.social-links a');
-    
-    socialLinks.forEach((link, index) => {
-        link.addEventListener('mouseenter', function() {
-            // Create ripple effect
-            const ripple = document.createElement('div');
-            ripple.style.position = 'absolute';
-            ripple.style.borderRadius = '50%';
-            ripple.style.background = 'rgba(102, 126, 234, 0.3)';
-            ripple.style.transform = 'scale(0)';
-            ripple.style.animation = 'ripple 0.6s linear';
-            ripple.style.left = '50%';
-            ripple.style.top = '50%';
-            ripple.style.width = '100px';
-            ripple.style.height = '100px';
-            ripple.style.marginLeft = '-50px';
-            ripple.style.marginTop = '-50px';
-            ripple.style.pointerEvents = 'none';
-            
-            this.style.position = 'relative';
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                if (ripple.parentNode) {
-                    ripple.parentNode.removeChild(ripple);
-                }
-            }, 600);
-        });
-    });
-});
-
-// Add ripple animation CSS
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(2);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(rippleStyle);
-
-// Typing effect for hero section
+// Simple typing effect for hero description
 document.addEventListener('DOMContentLoaded', function() {
     const heroDescription = document.querySelector('.hero-description p');
     if (heroDescription) {
         const text = heroDescription.textContent;
         heroDescription.textContent = '';
+        heroDescription.style.borderRight = '2px solid var(--accent-blue)';
         
         let i = 0;
         const typeWriter = () => {
             if (i < text.length) {
                 heroDescription.textContent += text.charAt(i);
                 i++;
-                setTimeout(typeWriter, 50);
+                setTimeout(typeWriter, 80);
+            } else {
+                // Remove cursor after typing is complete
+                setTimeout(() => {
+                    heroDescription.style.borderRight = 'none';
+                }, 1000);
             }
         };
         
-        // Start typing effect after hero animations
-        setTimeout(typeWriter, 2000);
+        // Start typing effect after a short delay
+        setTimeout(typeWriter, 1500);
     }
 });
 
-// Add loading animation
-document.addEventListener('DOMContentLoaded', function() {
-    // Create loading screen
-    const loader = document.createElement('div');
-    loader.id = 'loader';
-    loader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--primary-bg);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: opacity 0.5s ease;
-    `;
-    
-    const sakuraLoader = document.createElement('div');
-    sakuraLoader.innerHTML = '🌸';
-    sakuraLoader.style.cssText = `
-        font-size: 4rem;
-        animation: spin 2s linear infinite;
-    `;
-    
-    loader.appendChild(sakuraLoader);
-    document.body.appendChild(loader);
-    
-    // Add spin animation
-    const spinStyle = document.createElement('style');
-    spinStyle.textContent = `
-        @keyframes spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-    `;
-    document.head.appendChild(spinStyle);
-    
-    // Remove loader after page loads
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                if (loader.parentNode) {
-                    loader.parentNode.removeChild(loader);
-                }
-            }, 500);
-        }, 1000);
-    });
-});
-
-// Console Easter Egg
-console.log(`
-🌸 Welcome to Kaivalya's Portfolio! 🌸
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Thanks for checking out the console!
-Feel free to explore the code and reach out if you have any questions.
-
-Connect with me:
-📧 vaidyakaivalya77@gmail.com
-🔗 https://linkedin.com/in/kaivalya-vaidya/
-📷 https://instagram.com/zephyrsofpoetry
-🐙 https://github.com/kayvour
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-`);
-
-// Performance optimization: Lazy load images if any are added later
-const observerLazy = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.remove('lazy');
-            observerLazy.unobserve(img);
-        }
-    });
-});
-
-// Apply to any future lazy images
-document.querySelectorAll('img[data-src]').forEach(img => {
-    observerLazy.observe(img);
-});
-
-// Tech badge hover effects
+// Simple hover effects for tech badges
 document.addEventListener('DOMContentLoaded', function() {
     const techBadges = document.querySelectorAll('.tech-badge-img');
     
     techBadges.forEach(badge => {
         badge.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.1) translateY(-5px)';
-            this.style.filter = 'brightness(1.2)';
+            this.style.transform = 'scale(1.1)';
+            this.style.transition = 'transform 0.2s ease';
         });
         
         badge.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1) translateY(0)';
-            this.style.filter = 'brightness(1)';
+            this.style.transform = 'scale(1)';
         });
     });
 });
 
-// Parallax effect for hero section
+// Add a floating cat in the corner
 document.addEventListener('DOMContentLoaded', function() {
-    const hero = document.querySelector('.hero');
+    const floatingCat = document.createElement('div');
+    floatingCat.innerHTML = '🐱';
+    floatingCat.className = 'floating-cat';
+    floatingCat.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        font-size: 2rem;
+        z-index: 1000;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        user-select: none;
+    `;
     
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallax = hero.querySelector('.hero-content');
+    // Add click interaction
+    floatingCat.addEventListener('click', function() {
+        this.style.transform = 'scale(1.5) rotate(360deg)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        }, 500);
         
-        if (parallax) {
-            const speed = scrolled * 0.5;
-            parallax.style.transform = `translateY(${speed}px)`;
+        // Show a little message
+        showCatMessage();
+    });
+    
+    document.body.appendChild(floatingCat);
+});
+
+// Cat message function
+function showCatMessage() {
+    const messages = [
+        "Meow! 🐾",
+        "Purr... coding is fun! 💻",
+        "Time for a cat break? ☕",
+        "Paws-itively amazing work! ✨",
+        "Meow-gical coding happening! 🎭",
+        "*stretches and yawns* 😴"
+    ];
+    
+    const message = messages[Math.floor(Math.random() * messages.length)];
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.textContent = message;
+    messageDiv.style.cssText = `
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background: var(--secondary-bg);
+        color: var(--text-primary);
+        padding: 10px 15px;
+        border-radius: 20px;
+        border: 1px solid var(--accent-blue);
+        font-size: 0.9rem;
+        z-index: 1001;
+        animation: fadeInOut 3s ease-in-out;
+        pointer-events: none;
+    `;
+    
+    document.body.appendChild(messageDiv);
+    
+    // Remove message after animation
+    setTimeout(() => {
+        if (messageDiv.parentNode) {
+            messageDiv.parentNode.removeChild(messageDiv);
         }
+    }, 3000);
+}
+
+// Add fadeInOut animation
+const messageStyle = document.createElement('style');
+messageStyle.textContent = `
+    @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateY(20px); }
+        20%, 80% { opacity: 1; transform: translateY(0); }
+        100% { opacity: 0; transform: translateY(-20px); }
+    }
+`;
+document.head.appendChild(messageStyle);
+
+// Console message (simplified)
+console.log(`
+🐱 Welcome to Kaivalya's Portfolio! 🐱
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Thanks for checking out the console!
+The cat is supervising the code quality! 
+
+Connect with me:
+📧 vaidyakaivalya77@gmail.com
+🔗 LinkedIn: kaivalya-vaidya
+📷 Instagram: @zephyrsofpoetry
+🐙 GitHub: kayvour
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+`);
+
+// Simple loading screen (optional)
+document.addEventListener('DOMContentLoaded', function() {
+    // Only show loader if page takes time to load
+    let hasLoaded = false;
+    
+    setTimeout(() => {
+        if (!hasLoaded) {
+            const loader = document.createElement('div');
+            loader.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: var(--primary-bg);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+                flex-direction: column;
+                gap: 1rem;
+            `;
+            
+            loader.innerHTML = `
+                <div style="font-size: 3rem; animation: gentle-sway 1s ease-in-out infinite;">🐱</div>
+                <div style="color: var(--text-secondary); font-family: 'Fira Code', monospace;">Loading...</div>
+            `;
+            
+            document.body.appendChild(loader);
+            
+            // Remove after page loads
+            window.addEventListener('load', function() {
+                hasLoaded = true;
+                setTimeout(() => {
+                    if (loader.parentNode) {
+                        loader.style.opacity = '0';
+                        loader.style.transition = 'opacity 0.5s ease';
+                        setTimeout(() => {
+                            loader.parentNode.removeChild(loader);
+                        }, 500);
+                    }
+                }, 500);
+            });
+        }
+    }, 100);
+    
+    // Set loaded flag if page loads quickly
+    window.addEventListener('load', function() {
+        hasLoaded = true;
     });
 });
 
-// Add floating animation to social links
+// Add simple social link hover effects
 document.addEventListener('DOMContentLoaded', function() {
     const socialLinks = document.querySelectorAll('.social-links a');
     
-    socialLinks.forEach((link, index) => {
-        link.style.animationDelay = `${index * 0.2}s`;
-        link.classList.add('floating');
+    socialLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.1)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
     });
 });
-
-// Add floating animation CSS
-const floatingStyle = document.createElement('style');
-floatingStyle.textContent = `
-    .floating {
-        animation: floating 3s ease-in-out infinite;
-    }
-    
-    @keyframes floating {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-10px);
-        }
-    }
-`;
-document.head.appendChild(floatingStyle);
