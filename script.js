@@ -237,12 +237,14 @@ document.addEventListener('DOMContentLoaded', function() {
 // Cat message function
 function showCatMessage() {
     const messages = [
-        "Meow! 🐾",
-        "Purr... coding is fun! 💻",
-        "Time for a cat break? ☕",
-        "Paws-itively amazing work! ✨",
+        "sudo feed-me 🐟",
+        "I debug by walking on the keyboard.",
+        "Time for a cat break?",
+        "Alt+Tab? I prefer Alt+Nap.",
         "Meow-gical coding happening! 🎭",
-        "*stretches and yawns* 😴"
+        "*stretches and yawns* 😴",
+        "Deploy purr-duction complete.",
+        "Git commit -m \"meow\""
     ];
     
     const message = messages[Math.floor(Math.random() * messages.length)];
