@@ -6,6 +6,7 @@
     <title>Kaivalya Vaidya - Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,8 +18,10 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#tech-stack">Tech Stack</a></li>
-                <li><a href="#blogs">Blogs</a></li>
                 <li><a href="#contact">Contact Me</a></li>
+                <li><a href="#" id="resumeBtn" class="resume-btn">
+                    <i class="fas fa-download"></i> Resume
+                </a></li>
                 <li><button class="theme-toggle" id="themeToggle">
                     <i class="fas fa-moon"></i>
                 </button></li>
@@ -113,67 +116,111 @@
     <section id="tech-stack" class="section">
         <h2>🧰 Tech Stack</h2>
         
-        <div class="tech-category">
-            <h3>🖥️ Languages</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Python" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" class="tech-badge-img">
+        <div class="tech-grid">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-code"></i>
+                    <h3>Languages</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Python">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-category">
-            <h3>🌐 Web Development</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" class="tech-badge-img">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web Development</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-category">
-            <h3>📊 Data & Machine Learning</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/NLTK-76B900?style=for-the-badge&logo=python&logoColor=white" alt="NLTK" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/TextBlob-3C3C3C?style=for-the-badge&logo=python&logoColor=white" alt="TextBlob" class="tech-badge-img">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Data & Machine Learning</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/NLTK-76B900?style=for-the-badge&logo=python&logoColor=white" alt="NLTK">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/TextBlob-3C3C3C?style=for-the-badge&logo=python&logoColor=white" alt="TextBlob">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-category">
-            <h3>🛢️ Databases</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" class="tech-badge-img">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-database"></i>
+                    <h3>Databases</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-category">
-            <h3>🛠️ Tools & Version Control</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" class="tech-badge-img">
-                <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" class="tech-badge-img">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-tools"></i>
+                    <h3>Tools & Version Control</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="tech-category">
-            <h3>🎨 Design</h3>
-            <div class="tech-badges">
-                <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma" class="tech-badge-img">
+            <div class="tech-category">
+                <div class="tech-header">
+                    <i class="fas fa-palette"></i>
+                    <h3>Design</h3>
+                </div>
+                <div class="tech-items">
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma">
+                    </div>
+                    <div class="tech-item">
+                        <img src="https://img.shields.io/badge/Canva-00C4CC?style=for-the-badge&logo=canva&logoColor=white" alt="Canva">
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Blogs Section -->
-    <section id="blogs" class="section">
-        <h2>Blogs</h2>
-        <div class="coming-soon">
-            <i class="fas fa-pen-fancy"></i>
-            <h3>Coming Soon</h3>
-            <p>I'll eventually start uploading blogs here.</p>
-            <div class="cat-helper">🐱 <span>The cat is working on it...</span></div>
         </div>
     </section>
 
