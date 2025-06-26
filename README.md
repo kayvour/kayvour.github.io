@@ -7,11 +7,11 @@ This is the source code for my personal portfolio website, showcasing my project
 
 ## ✨ Features
 - **Responsive Design** — Optimized for all device sizes
-- **Dark Theme** — Charcoal background with sakura pink accents
 - **Interactive Projects** — Showcasing AI/ML and web development work
 - **Clean Typography** — Focus on readability and elegant presentation
 - **Smooth Animations** — Subtle interactions and transitions
 - **Theme Toggle** — Light/dark mode switching capability
+- **Downloadable Résumé** — Quick access to my latest CV
 
 ## 🛠️ Tech Stack
 - **HTML5** — Semantic structure and accessibility
@@ -21,7 +21,6 @@ This is the source code for my personal portfolio website, showcasing my project
 
 
 ## 📈 Future Enhancements
-- [ ] Blog integration with markdown support
 - [ ] Project detail pages
 - [ ] Contact form functionality
 - [ ] Performance optimizations
