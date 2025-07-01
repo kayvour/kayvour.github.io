@@ -523,7 +523,7 @@ Thanks for checking out the console! The cat supervisor approves of your curiosi
    • Design: Figma, Canva
 
 📫 Connect with me:
-   📧 vaidyakaivalya77@gmail.com
+   📧 kaivalyavaidya.work@gmail.com
    🔗 LinkedIn: linkedin.com/in/kaivalya-vaidya
    📷 Instagram: @zephyrsofpoetry
    🐙 GitHub: github.com/kayvour
