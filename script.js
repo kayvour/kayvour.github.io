@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Resume Download Functionality
+// Resume View Functionality
 document.addEventListener('DOMContentLoaded', function() {
     const resumeBtn = document.getElementById('resumeBtn');
     
@@ -55,25 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.transform = 'scale(1)';
             }, 150);
             
-            // Create a temporary link to download the resume
-            const link = document.createElement('a');
-            link.href = 'assets/Kaivalya_Vaidya_Resume.pdf'; // Update this path to your resume
-            link.download = 'Kaivalya_Vaidya_Resume.pdf';
-            link.target = '_blank';
+            // Open PDF in new tab without download prompt
+            window.open('assets/Kaivalya_Vaidya_Resume.pdf', '_blank');
             
-            // Fallback for browsers that don't support download attribute
-            link.onclick = function() {
-                setTimeout(() => {
-                    window.open(link.href, '_blank');
-                }, 100);
-            };
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            // Show download message
-            showNotification('Resume download started! 📄', 'success');
+            // Show notification message
+            showNotification('Opening resume in new tab! 📄', 'info');
         });
     }
 });
