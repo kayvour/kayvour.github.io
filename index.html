@@ -3,316 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaivalya Vaidya - Portfolio</title>
-
-    <!-- Favicons -->
+    <title>Kaivalya Vaidya</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png" />
     <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
-    <link rel="shortcut icon" href="assets/favicon/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
     <link rel="manifest" href="assets/favicon/site.webmanifest" />
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* ---- HERO ---- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+
+        .hero-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.95;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.35s forwards;
+        }
+
+        .hero-name .first { color: var(--text-primary); }
+        .hero-name .last {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.5s forwards;
+        }
+
+        .role-chip {
+            padding: 0.3rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            border: 1px solid;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .role-chip.tech { color: var(--accent-blue); border-color: rgba(102,126,234,0.3); background: rgba(102,126,234,0.07); }
+        .role-chip.poetry { color: var(--accent-pink); border-color: rgba(240,147,251,0.3); background: rgba(240,147,251,0.07); }
+        .role-chip.run { color: #f7971e; border-color: rgba(247,151,30,0.3); background: rgba(247,151,30,0.07); }
+
+        .hero-bio {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.65s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.8s forwards;
+        }
+
+        .hero-socials {
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.95s forwards;
+        }
+
+        /* location */
+        .hero-location {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.2s forwards;
+        }
+        .hero-location i { color: var(--accent-pink); }
+
+        /* right side: "now" card */
+        .now-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            width: 280px;
+            flex-shrink: 0;
+            opacity: 0;
+            animation: fadeSlideUp 0.6s ease 0.6s forwards;
+        }
+
+        .now-card-title {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            color: var(--accent-blue);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .now-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .now-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .now-item:first-of-type { padding-top: 0; }
+
+        .now-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .now-icon.blue { background: rgba(102,126,234,0.15); color: var(--accent-blue); }
+        .now-icon.pink { background: rgba(240,147,251,0.15); color: var(--accent-pink); }
+        .now-icon.orange { background: rgba(247,151,30,0.15); color: #f7971e; }
+
+        .now-text small {
+            display: block;
+            font-size: 0.7rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--text-muted);
+            margin-bottom: 0.15rem;
+        }
+        .now-text p {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        /* ---- THREE WORLDS ---- */
+        .worlds {
+            padding: 6rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .worlds-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .worlds-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .world-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.2rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-height: 260px;
+        }
+
+        .world-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .world-card.tech::before { background: radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.15), transparent 70%); }
+        .world-card.poetry::before { background: radial-gradient(ellipse at top left, rgba(240, 147, 251, 0.15), transparent 70%); }
+        .world-card.run::before { background: radial-gradient(ellipse at top left, rgba(247, 151, 30, 0.15), transparent 70%); }
+
+        .world-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+        }
+        .world-card:hover::before { opacity: 1; }
+        .world-card.tech:hover { border-color: rgba(102,126,234,0.5); }
+        .world-card.poetry:hover { border-color: rgba(240,147,251,0.5); }
+        .world-card.run:hover { border-color: rgba(247,151,30,0.5); }
+
+        .world-emoji {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        .world-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+        .world-card.tech .world-label { color: var(--accent-blue); }
+        .world-card.poetry .world-label { color: var(--accent-pink); }
+        .world-card.run .world-label { color: #f7971e; }
+
+        .world-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .world-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            flex: 1;
+        }
+
+        .world-arrow {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: transform 0.25s ease, color 0.25s ease;
+            align-self: flex-end;
+        }
+        .world-card:hover .world-arrow {
+            transform: translateX(4px);
+            color: var(--text-secondary);
+        }
+
+        /* ---- QUICK TECH STACK ---- */
+        .stack-section {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        .stack-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        .stack-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 10px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-family: 'Fira Code', monospace;
+            transition: all 0.2s ease;
+        }
+        .stack-chip:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+            background: rgba(102,126,234,0.07);
+        }
+
+        /* ---- KEYFRAMES ---- */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+            .now-card { width: 100%; max-width: 400px; }
+            .worlds-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-name { font-size: clamp(3rem, 12vw, 5rem); }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
+
+    <!-- NAV -->
     <nav>
         <div class="nav-container">
-            <div class="logo">Kaivalya Vaidya</div>
+            <a href="index.html" class="logo">Kaivalya Vaidya</a>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#tech-stack">Tech Stack</a></li>
-                <li><a href="#contact">Contact Me</a></li>
-                <li><a href="#" id="resumeBtn" class="resume-btn">
-                    <i class="fas fa-download"></i> Resume
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="pages/tech.html">Tech</a></li>
+                <li><a href="pages/poetry.html">Poetry</a></li>
+                <li><a href="pages/running.html">Running</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+                <li><a href="#" id="resumeBtn" class="nav-pill resume-link">
+                    <i class="fas fa-file-text"></i> Resume
                 </a></li>
-                <li><button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Kaivalya Vaidya</h1>
-            <p>Computer Science Student (AI & ML) | Frontend & Python Developer | Creative Writer</p>
-            <div class="location">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>India</span>
-            </div>
-            <div class="social-links">
-                <a href="https://github.com/kayvour" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-            <div class="hero-description">
-                <p>Welcome to my website I guess. I do frontend development, distance running and poetry.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="assets/screenshots/PaintMyPoem.png" alt="PaintMyPoem Screenshot" loading="lazy">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hero-location"><i class="fas fa-map-marker-alt"></i> India</div>
+                <div class="hero-eyebrow cursor-blink">// welcome to my website, i guess?</div>
+                <h1 class="hero-name">
+                    <span class="first">Kaivalya Vaidya</span>
+                </h1>
+                <div class="hero-roles">
+                    <span class="role-chip tech">CS Student · AI/ML</span>
+                    <span class="role-chip poetry">Poet</span>
+                    <span class="role-chip run">Distance Runner</span>
                 </div>
-                <div class="project-header">
-                    <h3>PaintMyPoem</h3>
-                    <div class="project-links">
-                        <a href="https://github.com/kayvour/PaintMyPoem" target="_blank" title="View Source Code">
-                            <i class="fab fa-github"></i>
+                <p class="hero-bio">
+                    I build things on the internet, write poetry that nobody asked for, and run distances that probably shouldn't be run voluntarily.
+                </p>
+                <div class="hero-actions">
+                    <a href="pages/tech.html" class="btn btn-primary">
+                        <i class="fas fa-code"></i> View Tech
+                    </a>
+                    <a href="pages/contact.html" class="btn btn-ghost">Get in touch</a>
+                </div>
+                <div class="hero-socials">
+                    <div class="social-links">
+                        <a href="https://github.com/kayvour" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://last.fm/kayvour" target="_blank" aria-label="Last.fm" title="Last.fm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.599 1.011C5.147 1.397.863 5.966.863 11.514c0 5.826 4.722 10.548 10.548 10.548 5.826 0 10.549-4.722 10.549-10.548 0-5.826-4.723-10.503-10.549-10.503h-.812zm1.08 4.37l1.39 3.812.655-3.812h2.577l-1.56 7.046-1.52-.014-1.52-4.16-1.52 4.16-1.52.014-1.56-7.046h2.577l.655 3.812 1.346-3.812z"/></svg>
                         </a>
-                        <span class="tech-badge python">Python</span>
-                    </div>
-                </div>
-                <p>A Python tool that transforms poems into abstract art using NLP and sentiment analysis. Analyzes tone and imagery to map them to shapes and colors, creating visual representations of poetic emotions.</p>
-                <div class="project-features">
-                    <span class="feature-tag">NLP</span>
-                    <span class="feature-tag">Sentiment Analysis</span>
-                    <span class="feature-tag">Data Visualization</span>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="assets/screenshots/cooking-assistant.png" alt="Cooking Assistant Screenshot" loading="lazy">
-                </div>
-                <div class="project-header">
-                    <h3>Cooking Assistant</h3>
-                    <div class="project-links">
-                        <a href="https://github.com/kayvour/cooking-assistant" target="_blank" title="View Source Code">
-                            <i class="fab fa-github"></i>
+                        <a href="https://www.strava.com/athletes/159002271" target="_blank" aria-label="Strava" title="Strava">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
                         </a>
-                        <a href="https://cooking-assistant-phi.vercel.app/" target="_blank" title="Live Demo">
-                            <i class="fas fa-external-link-alt"></i>
-                        </a>
-                        <span class="tech-badge css">CSS</span>
-                    </div>
-                </div>
-                <p>An interactive web application that helps users follow recipe instructions hands-free using voice commands. Features ingredient extraction and step-by-step cooking guidance.</p>
-                <div class="project-features">
-                    <span class="feature-tag">Voice Commands</span>
-                    <span class="feature-tag">Web Speech API</span>
-                    <span class="feature-tag">Interactive UI</span>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-image">
-                    <img src="assets/screenshots/ocr.png" alt="PolyOCR-Bench Screenshot" loading="lazy">
-                </div>
-                <div class="project-header">
-                    <h3>PolyOCR-Bench</h3>
-                    <div class="project-links">
-                        <a href="https://github.com/kayvour/poly-ocr" target="_blank" title="View Source Code">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <span class="tech-badge python">Python</span>
-                    </div>
-                </div>
-                <p>A multilingual OCR benchmarking framework for comparing engines like Tesseract and EasyOCR across languages and scripts. Evaluates accuracy using CER and WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots.</p>
-                <div class="project-features">
-                    <span class="feature-tag">OCR</span>
-                    <span class="feature-tag">Benchmarking</span>
-                    <span class="feature-tag">Multilingual</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack Section -->
-    <section id="tech-stack" class="section">
-        <h2>🧰 Tech Stack</h2>
-
-        <div class="tech-grid">
-            <!-- Languages -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-code"></i>
-                    <h3>Languages</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue" alt="Python">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Bash-121011?style=for-the-badge&logo=gnu-bash&logoColor=white" alt="Bash">
                     </div>
                 </div>
             </div>
 
-            <!-- Web Development -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-globe"></i>
-                    <h3>Web Development</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
+            <div class="now-card">
+                <div class="now-card-title">// currently</div>
+                <div class="now-item">
+                    <div class="now-icon blue"><i class="fas fa-code"></i></div>
+                    <div class="now-text">
+                        <small>building</small>
+                        <p>PolyOCR - An OCR benchmarking tool</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Data & Machine Learning -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-chart-bar"></i>
-                    <h3>Data &amp; Machine Learning</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="NumPy">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/NLTK-76B900?style=for-the-badge&logo=python&logoColor=white" alt="NLTK">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/TextBlob-3C3C3C?style=for-the-badge&logo=python&logoColor=white" alt="TextBlob">
+                <div class="now-item">
+                    <div class="now-icon pink"><i class="fas fa-feather-alt"></i></div>
+                    <div class="now-text">
+                        <small>writing</small>
+                        <p>Poems at @zephyrsofpoetry</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- Databases -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-database"></i>
-                    <h3>Databases</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tools & Version Control -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-tools"></i>
-                    <h3>Tools &amp; Version Control</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="VS Code">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Design -->
-            <div class="tech-category">
-                <div class="tech-header">
-                    <i class="fas fa-palette"></i>
-                    <h3>Design</h3>
-                </div>
-                <div class="tech-items">
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma">
-                    </div>
-                    <div class="tech-item">
-                        <img src="https://img.shields.io/badge/Canva-00C4CC?style=for-the-badge&logo=canva&logoColor=white" alt="Canva">
+                <div class="now-item">
+                    <div class="now-icon orange"><i class="fas fa-running"></i></div>
+                    <div class="now-text">
+                        <small>running</small>
+                        <p>At least trying to</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <h2>Get In Touch</h2>
-        <div class="contact-content">
-            <div class="contact-info">
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
+    <!-- THREE WORLDS -->
+    <section class="worlds">
+        <div class="container">
+            <div class="worlds-header">
+                <span class="section-label">// explore</span>
+                <h2 class="section-title">Three <span class="reveal-text">worlds</span></h2>
+            </div>
+            <div class="worlds-grid">
+                <a href="pages/tech.html" class="world-card tech fade-up">
+                    <div class="world-emoji">💻</div>
                     <div>
-                        <h3>Email</h3>
-                        <a href="mailto:kaivalyavaidya.work@gmail.com">kaivalyavaidya.work@gmail.com</a>
+                        <div class="world-label">Computer Science</div>
+                        <div class="world-title">Tech</div>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-graduation-cap"></i>
+                    <p class="world-desc">Frontend dev, Python tools, NLP experiments, OCR benchmarks, hacker terminals. 6 projects.</p>
+                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> See my projects</div>
+                </a>
+                <a href="pages/poetry.html" class="world-card poetry fade-up">
+                    <div class="world-emoji">🌿</div>
                     <div>
-                        <h3>Education</h3>
-                        <p>Computer Science Student (AI & ML)</p>
+                        <div class="world-label">Creativity</div>
+                        <div class="world-title">Poetry</div>
                     </div>
-                </div>
-            </div>
-            <div class="contact-message">
-                <h3>Let's Connect!</h3>
-                <p>Feel free to reach out!</p>
-                <div class="social-links">
-                    <a href="https://github.com/kayvour" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
+                    <p class="world-desc">Things I wrote at @zephyrsofpoetry. About bad lighting, ceilings, and the curtains lost.</p>
+                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> Read poems</div>
+                </a>
+                <a href="pages/running.html" class="world-card run fade-up">
+                    <div class="world-emoji">🏃</div>
+                    <div>
+                        <div class="world-label">Fitness</div>
+                        <div class="world-title">Running</div>
+                    </div>
+                    <p class="world-desc">531 km logged, 146 activities, PRs from 400m to 10 mile. Voluntarily.</p>
+                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> See my runs</div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- QUICK STACK -->
+    <section class="stack-section">
+        <div class="container">
+            <span class="section-label">// tech stack</span>
+            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 0.5rem;">What I work with</h2>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0;">
+                <a href="pages/tech.html" style="color: var(--accent-blue); text-decoration: none;">See full projects →</a>
+            </p>
+            <div class="stack-row">
+                <span class="stack-chip fade-up">🐍 Python</span>
+                <span class="stack-chip fade-up">⚡ JavaScript</span>
+                <span class="stack-chip fade-up">💻 C</span>
+                <span class="stack-chip fade-up">💻 C++</span>
+                <span class="stack-chip fade-up">🐚 Bash</span>
+
+                <span class="stack-chip fade-up">⚛️ React</span>
+                <span class="stack-chip fade-up">🌐 HTML</span>
+                <span class="stack-chip fade-up">🎨 CSS</span>
+                <span class="stack-chip fade-up">🔥 Flask</span>
+
+                <span class="stack-chip fade-up">🔥 PyTorch</span>
+                <span class="stack-chip fade-up">🤗 Transformers</span>
+                <span class="stack-chip fade-up">🧠 CLIP</span>
+                <span class="stack-chip fade-up">🔢 NumPy</span>
+                <span class="stack-chip fade-up">📊 Pandas</span>
+                <span class="stack-chip fade-up">📈 scikit-learn</span>
+                <span class="stack-chip fade-up">🧠 NLTK</span>
+                <span class="stack-chip fade-up">💬 TextBlob</span>
+                <span class="stack-chip fade-up">📉 Matplotlib</span>
+                <span class="stack-chip fade-up">🔍 Tesseract OCR</span>
+
+                <span class="stack-chip fade-up">🗃️ MongoDB</span>
+                <span class="stack-chip fade-up">🗄️ MySQL</span>
+                <span class="stack-chip fade-up">🔥 Firebase</span>
+
+                <span class="stack-chip fade-up">🎨 Figma</span>
+                <span class="stack-chip fade-up">🖌️ Canva</span>
+                <span class="stack-chip fade-up">▲ Vercel</span>
+                <span class="stack-chip fade-up">🐙 Git</span>
+                <span class="stack-chip fade-up">🐙 GitHub</span>
+                <span class="stack-chip fade-up">💻 VS Code</span>
+                <span class="stack-chip fade-up">🕵️ OSINT</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section class="stack-section" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="container">
+            <span class="section-label">// contact</span>
+            <h2 class="section-title" style="font-size: 2rem;">Get in <span class="reveal-text">touch</span></h2>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0.75rem 0 1.75rem; max-width: 420px; line-height: 1.7;">
+                Whether it's about code, collaboration, or just saying hi.
+            </p>
+            <a href="pages/contact.html" class="btn btn-primary" style="font-size: 0.9rem;">
+                <i class="fas fa-arrow-right"></i> Go to contact page
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2026 Kaivalya Vaidya. Made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
-            <div class="footer-cat">🐱 Supervised by my coding companion</div>
+        <div class="footer-inner">
+            <p>© 2026 Kaivalya Vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            <p style="font-family: 'Fira Code', monospace; font-size: 0.78rem;">🐱 supervised by the cat</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <div id="floatingCat">🐱</div>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

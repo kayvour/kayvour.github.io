@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact &mdash; Kaivalya Vaidya</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .contact-page {
+            min-height: 100vh;
+            padding: calc(var(--nav-height) + 5rem) 0 6rem;
+            position: relative;
+            z-index: 1;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 3.5rem;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .contact-link-card {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            padding: 1.2rem 1.4rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+        }
+        .contact-link-card:hover {
+            border-color: var(--glass-border-hover);
+            background: var(--glass-bg-hover);
+            transform: translateX(4px);
+        }
+        .contact-link-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: transform 0.25s ease;
+        }
+        .contact-link-card:hover .contact-link-icon { transform: scale(1.1); }
+        .contact-link-icon.blue   { background: rgba(102,126,234,0.15); color: var(--accent-blue); }
+        .contact-link-icon.violet { background: rgba(118,75,162,0.15);  color: var(--accent-violet); }
+        .contact-link-icon.pink   { background: rgba(240,147,251,0.15); color: var(--accent-pink); }
+        .contact-link-icon.red    { background: rgba(186,0,0,0.15);     color: #e53935; }
+        .contact-link-icon.strava { background: rgba(252,76,2,0.15);    color: #fc4c02; }
+        .contact-link-text small {
+            display: block;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.15rem;
+        }
+        .contact-link-text span {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        .contact-link-arrow {
+            margin-left: auto;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+        .contact-link-card:hover .contact-link-arrow {
+            transform: translateX(3px);
+            color: var(--text-secondary);
+        }
+        .contact-note {
+            position: sticky;
+            top: calc(var(--nav-height) + 2rem);
+        }
+        .contact-note-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.2rem;
+        }
+        .contact-note-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .contact-note-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.75;
+            margin-bottom: 1rem;
+        }
+        .contact-note-card p:last-child { margin-bottom: 0; }
+        .availability {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .availability-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 0 3px rgba(52,211,153,0.2);
+            animation: pulse-dot 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(52,211,153,0.2); }
+            50%       { box-shadow: 0 0 0 6px rgba(52,211,153,0.08); }
+        }
+        .availability span {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.78rem;
+            color: #34d399;
+        }
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .contact-note { position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Kaivalya Vaidya</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="tech.html">Tech</a></li>
+                <li><a href="poetry.html">Poetry</a></li>
+                <li><a href="running.html">Running</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="#" class="nav-pill resume-link"><i class="fas fa-file-text"></i> Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="contact-page">
+        <div class="container">
+            <span class="section-label">// contact</span>
+            <h1 class="section-title">Let's <span class="reveal-text">talk</span></h1>
+            <p style="color: var(--text-secondary); max-width: 460px; line-height: 1.7; margin-top: 0.75rem; font-size: 0.95rem;">
+                Whether it's about code, collaboration, poetry, or just saying hi, feel free to reach out on any of these.
+            </p>
+
+            <div class="contact-grid">
+
+                <div class="contact-links">
+
+                    <a href="mailto:kaivalyavaidya.work@gmail.com" class="contact-link-card fade-up">
+                        <div class="contact-link-icon blue"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-link-text">
+                            <small>email</small>
+                            <span>kaivalyavaidya.work@gmail.com</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon violet"><i class="fab fa-linkedin"></i></div>
+                        <div class="contact-link-text">
+                            <small>linkedin</small>
+                            <span>kaivalya-vaidya</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <a href="https://github.com/kayvour" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon blue"><i class="fab fa-github"></i></div>
+                        <div class="contact-link-text">
+                            <small>github</small>
+                            <span>kayvour</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon pink"><i class="fab fa-instagram"></i></div>
+                        <div class="contact-link-text">
+                            <small>instagram</small>
+                            <span>@zephyrsofpoetry</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <a href="https://www.last.fm/user/kayvour" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon red">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.599 1.011C5.147 1.397.863 5.966.863 11.514c0 5.826 4.722 10.548 10.548 10.548 5.826 0 10.549-4.722 10.549-10.548 0-5.826-4.723-10.503-10.549-10.503h-.812zm1.08 4.37l1.39 3.812.655-3.812h2.577l-1.56 7.046-1.52-.014-1.52-4.16-1.52 4.16-1.52.014-1.56-7.046h2.577l.655 3.812 1.346-3.812z"/></svg>
+                        </div>
+                        <div class="contact-link-text">
+                            <small>last.fm</small>
+                            <span>kayvour</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <a href="https://www.strava.com/athletes/159002271" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon strava">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+                        </div>
+                        <div class="contact-link-text">
+                            <small>strava</small>
+                            <span>Kaivalya Vaidya</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                </div>
+
+                <div class="contact-note fade-up">
+                    <div class="contact-note-card">
+                        <h3>Hey there 👋</h3>
+                        <p>I'm a CS student interested in AI/ML, frontend development, and building things that are either useful, interesting or both.</p>
+                        <p>Open to collaborations, project ideas, internship opportunities, or just talking about running, poetry, or code.</p>
+                        <p style="font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--text-muted);">
+                            Response time: usually within 24h.
+                        </p>
+                        <div class="availability">
+                            <div class="availability-dot"></div>
+                            <span>open to opportunities</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <p>&#169; 2026 Kaivalya Vaidya -- made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            <p style="font-family: 'Fira Code', monospace; font-size: 0.78rem;">supervised by the cat</p>
+        </div>
+    </footer>
+
+    <div id="floatingCat">&#x1F431;</div>
+    <script src="../js/main.js"></script>
+</body>
+</html>

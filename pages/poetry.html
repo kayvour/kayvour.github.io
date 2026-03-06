@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry — Kaivalya Vaidya</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* Slightly warmer overlay for poetry page */
+        body::before {
+            background: 
+                radial-gradient(ellipse 70% 60% at 10% 20%, rgba(240, 147, 251, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 85% 75%, rgba(245, 87, 108, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(102, 126, 234, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 0.35s ease;
+        }
+        .page-hero {
+            padding: calc(var(--nav-height) + 4rem) 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ---- Featured poem ---- */
+        .featured-poem {
+            margin-top: 3rem;
+            padding: 4rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .featured-inner {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .poem-featured-card {
+            background: linear-gradient(135deg, rgba(240,147,251,0.06) 0%, rgba(102,126,234,0.04) 100%);
+            border: 1px solid rgba(240, 147, 251, 0.2);
+            border-radius: 24px;
+            padding: 3.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-featured-card::before {
+            content: '"';
+            position: absolute;
+            top: -0.5rem;
+            left: 2rem;
+            font-family: 'Lora', serif;
+            font-size: 10rem;
+            color: rgba(240, 147, 251, 0.08);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .poem-meta-top {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .poem-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-pink);
+        }
+
+        .poem-label-text {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+        }
+
+        .poem-title-featured {
+            font-family: 'Lora', serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .poem-body {
+            font-family: 'Lora', serif;
+            font-size: 1.05rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            white-space: pre-line;
+        }
+
+        .poem-body em {
+            color: var(--text-primary);
+            font-style: italic;
+        }
+
+        .poem-footer-row {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .poem-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ---- Poems grid ---- */
+        .poems-section {
+            padding: 2rem 0 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .poems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .poem-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poem-card:hover {
+            border-color: rgba(240, 147, 251, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+            background: rgba(240, 147, 251, 0.03);
+        }
+
+        .poem-card-title {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .poem-card-excerpt {
+            font-family: 'Lora', serif;
+            font-size: 0.88rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+        }
+
+        .poem-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .poem-card-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .read-link {
+            font-size: 0.78rem;
+            color: var(--accent-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.25s ease;
+        }
+        .poem-card:hover .read-link {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Modal */
+        .poem-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .poem-modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .poem-modal {
+            background: rgba(18, 18, 42, 0.95);
+            border: 1px solid rgba(240, 147, 251, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 640px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.3s ease;
+            scrollbar-width: thin;
+        }
+        .poem-modal-overlay.open .poem-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .modal-close:hover { color: var(--accent-pink); border-color: rgba(240,147,251,0.4); }
+
+        .modal-poem-title {
+            font-family: 'Lora', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-poem-date {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .modal-poem-body {
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            line-height: 2.1;
+            color: var(--text-secondary);
+            white-space: pre-line;
+        }
+
+        /* Instagram CTA */
+        .instagram-cta {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(240,147,251,0.08), rgba(245,87,108,0.06));
+            border: 1px solid rgba(240,147,251,0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .instagram-cta p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .instagram-cta strong {
+            color: var(--text-primary);
+        }
+
+        .btn-instagram {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.3rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+        .btn-instagram:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(240,147,251,0.3);
+        }
+
+        @media (max-width: 600px) {
+            .poem-featured-card { padding: 2rem 1.5rem; }
+            .poem-modal { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Kaivalya Vaidya</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="tech.html">Tech</a></li>
+                <li><a href="poetry.html" class="active">Poetry</a></li>
+                <li><a href="running.html">Running</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" class="nav-pill resume-link"><i class="fas fa-file-text"></i> Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <div class="container">
+            <span class="section-label">// poetry</span>
+            <h1 class="section-title">Words on <span class="reveal-text">ceilings</span><br>and bad lighting</h1>
+            <p style="color: var(--text-secondary); max-width: 480px; line-height: 1.7; margin-top: 0.75rem; font-size: 0.95rem;">
+                Four poems. More at <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" style="color: var(--accent-pink); text-decoration: none;">@zephyrsofpoetry</a>.
+            </p>
+        </div>
+    </div>
+
+    <!-- FEATURED POEM -->
+    <section class="featured-poem">
+        <div class="featured-inner">
+            <div class="poem-featured-card fade-up">
+                <div class="poem-meta-top">
+                    <div class="poem-dot"></div>
+                    <span class="poem-label-text">featured poem</span>
+                </div>
+                <h2 class="poem-title-featured">I Left the Light On</h2>
+                <div class="poem-body">I left the light on
+Just to see what the dark would do.
+The light hits me in the face,
+As if it knows something beautiful.
+
+My feet are cold from the tiled floor,
+<em>Light clinging on like leeches.</em>
+How do I test these boundaries
+If there aren't any around me?
+
+Do I build a brick wall,
+To keep selective memories
+Of you, and me with you?
+Or should I not think so far?
+
+Don't close my eyes, I think.
+That's not real enough to feel it.
+<em>I need the dark to reach out,</em>
+To validate my dreaming.</div>
+                <div class="poem-footer-row">
+                    <span class="poem-date">// @zephyrsofpoetry</span>
+                    <div class="social-links" style="margin: 0;">
+                        <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" title="@zephyrsofpoetry">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MORE POEMS -->
+    <section class="poems-section">
+        <div class="container">
+            <span class="section-label">// more poems</span>
+            <h2 class="section-title" style="font-size: 1.8rem;">Recent <span class="reveal-text">verses</span></h2>
+
+            <div class="poems-grid">
+
+                <div class="poem-card fade-up"
+                    data-title="I Think I Died in That Cell"
+                    data-date="@zephyrsofpoetry"
+                    data-full="I think I died in that cell,
+because this must be hell.
+
+I never testified.
+I died in a space without the sky.
+Untouched ideas for an extra high.
+I don't even cry.
+
+Missed calls,
+unread messages.
+I'm trapped on the ceiling.
+Not death,
+just elsewhere.
+
+I never testified.
+Hell has some extra lights and,
+misfits in here with the smallest bites.
+I had some rights.
+
+The climate is controlled,
+and the curtains lost.">
+                    <div class="poem-card-title">I Think I Died in That Cell</div>
+                    <div class="poem-card-excerpt">I think I died in that cell,
+because this must be hell.
+
+I never testified.
+I died in a space without the sky...</div>
+                    <div class="poem-card-footer">
+                        <span class="poem-card-date">// @zephyrsofpoetry</span>
+                        <span class="read-link"><i class="fas fa-book-open"></i> read</span>
+                    </div>
+                </div>
+
+                <div class="poem-card fade-up"
+                    data-title="Bad Lighting"
+                    data-date="@zephyrsofpoetry"
+                    data-full="Bad lighting has always been kinder,
+forgiving me for things,
+things I cannot forgive myself for.
+Hiding my bruises from yesterday
+and my wounds from yesteryears.
+I look like someone easier to believe.
+Maybe it's like her eyes.">
+                    <div class="poem-card-title">Bad Lighting</div>
+                    <div class="poem-card-excerpt">Bad lighting has always been kinder,
+forgiving me for things,
+things I cannot forgive myself for...</div>
+                    <div class="poem-card-footer">
+                        <span class="poem-card-date">// @zephyrsofpoetry</span>
+                        <span class="read-link"><i class="fas fa-book-open"></i> read</span>
+                    </div>
+                </div>
+
+                <div class="poem-card fade-up"
+                    data-title="The Years Keep Flying By"
+                    data-date="@zephyrsofpoetry"
+                    data-full="The years keep flying by,
+Her pill drawer stacks and piles high
+Hepatitis, Diabetes, and a Stye,
+And the insecurity ointment to apply.
+
+Her stomach is on the wrong kind of fire,
+While other organs rest on a pyre.
+Her spine waits to burn when drier,
+And her brain is wrapped in barbed wire.
+
+Her soul can only try to escape
+From the eyes always gazing at her shape.
+The walls have trails and trails of tape,
+And her floor remains a misery landscape.
+
+The mirror mocks her shaky sight;
+She cannot see herself quite,
+Nor can she dress up for her special knight
+After all, there is too much spite.">
+                    <div class="poem-card-title">The Years Keep Flying By</div>
+                    <div class="poem-card-excerpt">The years keep flying by,
+Her pill drawer stacks and piles high
+Hepatitis, Diabetes, and a Stye...</div>
+                    <div class="poem-card-footer">
+                        <span class="poem-card-date">// @zephyrsofpoetry</span>
+                        <span class="read-link"><i class="fas fa-book-open"></i> read</span>
+                    </div>
+                </div>
+
+                <div class="poem-card fade-up"
+                    data-title="I Left the Light On"
+                    data-date="@zephyrsofpoetry"
+                    data-full="I left the light on
+Just to see what the dark would do.
+The light hits me in the face,
+As if it knows something beautiful.
+
+My feet are cold from the tiled floor,
+Light clinging on like leeches.
+How do I test these boundaries
+If there aren't any around me?
+
+Do I build a brick wall,
+To keep selective memories
+Of you, and me with you?
+Or should I not think so far?
+
+Don't close my eyes, I think.
+That's not real enough to feel it.
+I need the dark to reach out,
+To validate my dreaming.">
+                    <div class="poem-card-title">I Left the Light On</div>
+                    <div class="poem-card-excerpt">I left the light on
+Just to see what the dark would do.
+The light hits me in the face...</div>
+                    <div class="poem-card-footer">
+                        <span class="poem-card-date">// @zephyrsofpoetry</span>
+                        <span class="read-link"><i class="fas fa-book-open"></i> read</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Instagram CTA -->
+            <div class="instagram-cta fade-up">
+                <div>
+                    <p><strong>More poems live on Instagram.</strong><br>
+                    I post regularly at <strong>@zephyrsofpoetry</strong> — verses on distance, code, running, and whatever else I can't get out of my head.</p>
+                </div>
+                <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" class="btn-instagram">
+                    <i class="fab fa-instagram"></i> @zephyrsofpoetry
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- POEM MODAL -->
+    <div class="poem-modal-overlay" id="poemModal">
+        <div class="poem-modal" style="position: relative;">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <h2 class="modal-poem-title" id="modalTitle"></h2>
+            <div class="modal-poem-date" id="modalDate"></div>
+            <div class="modal-poem-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            <p>© 2026 Kaivalya Vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            <p style="font-family: 'Fira Code', monospace; font-size: 0.78rem;">🐱 supervised by the cat</p>
+        </div>
+    </footer>
+
+    <div id="floatingCat">🐱</div>
+    <script src="../js/main.js"></script>
+    <script>
+        const modal = document.getElementById('poemModal');
+        const modalClose = document.getElementById('modalClose');
+
+        document.querySelectorAll('.poem-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.getElementById('modalTitle').textContent = card.dataset.title;
+                document.getElementById('modalDate').textContent = '// ' + card.dataset.date;
+                document.getElementById('modalBody').textContent = card.dataset.full;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+        function closeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

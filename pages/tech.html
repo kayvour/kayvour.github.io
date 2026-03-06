@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech — Kaivalya Vaidya</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .page-hero {
+            padding: calc(var(--nav-height) + 4rem) 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Filters */
+        .filter-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-family: 'Fira Code', monospace;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: rgba(102,126,234,0.08);
+        }
+
+        /* Projects grid */
+        .projects-section {
+            padding: 2rem 0 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            border-color: rgba(102,126,234,0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+        }
+
+        .project-card[data-hidden="true"] {
+            display: none;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(118,75,162,0.1));
+            position: relative;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .project-card:hover .project-img img {
+            transform: scale(1.05);
+        }
+
+        .project-img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .project-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .project-links-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .project-links-row a {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .project-links-row a:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.65;
+            flex: 1;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: auto;
+        }
+
+        /* featured banner */
+        .featured-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(102,126,234,0.85);
+            backdrop-filter: blur(8px);
+            color: white;
+            font-size: 0.68rem;
+            font-family: 'Fira Code', monospace;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            letter-spacing: 0.08em;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Kaivalya Vaidya</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="tech.html" class="active">Tech</a></li>
+                <li><a href="poetry.html">Poetry</a></li>
+                <li><a href="running.html">Running</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#" class="nav-pill resume-link"><i class="fas fa-file-text"></i> Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <div class="container">
+            <span class="section-label">// tech</span>
+            <h1 class="section-title">Things I've <span class="reveal-text">built</span></h1>
+            <p style="color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-top: 0.75rem; font-size: 0.95rem;">
+                A mix of tools, experiments, and side projects — mostly Python and frontend. Some useful, some just for fun.
+            </p>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All (7)</button>
+                <!-- count stays 7 -->
+                <button class="filter-btn" data-filter="python">Python</button>
+                <button class="filter-btn" data-filter="frontend">Frontend</button>
+                <button class="filter-btn" data-filter="nlp">NLP</button>
+                <button class="filter-btn" data-filter="ml">ML / Data</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-grid" id="projectsGrid">
+
+                <!-- 1. PaintMyPoem -->
+                <div class="project-card fade-up" data-tags="python nlp">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/PaintMyPoem.png" alt="PaintMyPoem" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none">🎨</div>
+                        <span class="featured-badge">featured</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">PaintMyPoem</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/PaintMyPoem" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Transforms poems into abstract art using NLP and sentiment analysis. Analyzes tone and imagery to map them to shapes and colors — a visual representation of poetic emotion.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag pink">NLP</span>
+                            <span class="tag pink">Sentiment Analysis</span>
+                            <span class="tag">Data Viz</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Cooking Assistant -->
+                <div class="project-card fade-up" data-tags="frontend">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/cooking-assistant.png" alt="Cooking Assistant" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none">🍳</div>
+                        <span class="featured-badge">featured</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">Cooking Assistant</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/cooking-assistant" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                                <a href="https://cooking-assistant-phi.vercel.app/" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Hands-free recipe companion using the Web Speech API. Follow step-by-step instructions, extract ingredients, and navigate recipes with voice commands.</p>
+                        <div class="project-tags">
+                            <span class="tag orange">JavaScript</span>
+                            <span class="tag">Web Speech API</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">Interactive UI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. PolyOCR-Bench -->
+                <div class="project-card fade-up" data-tags="python ml">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/ocr.png" alt="PolyOCR-Bench" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none">🔍</div>
+                        <span class="featured-badge">featured</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">PolyOCR-Bench</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/poly-ocr" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag green">OCR</span>
+                            <span class="tag">Benchmarking</span>
+                            <span class="tag">Multilingual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. RouteCast -->
+                <div class="project-card fade-up" data-tags="frontend">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/routecast.png" alt="RouteCast" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(79,172,254,0.2), rgba(0,242,254,0.1));">🗺️</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">RouteCast</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/routecast" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Travel assistant that fetches real-time weather forecasts for key points along a road trip route. Uses OpenRouteService for routing and OpenWeatherMap for hourly weather at each stop.</p>
+                        <div class="project-tags">
+                            <span class="tag orange">JavaScript</span>
+                            <span class="tag">React</span>
+                            <span class="tag">Express.js</span>
+                            <span class="tag green">Weather API</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. philosophy-days -->
+                <div class="project-card fade-up" data-tags="python">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/philosophy-days.png" alt="philosophy-days" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.15));">🏛️</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">philosophy-days</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/philosophy-days" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Python tool that fetches philosopher birthdays, global ethics observances, and philosophy-related days for any given month and year. YAML-based data with support for fixed and floating holidays.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag pink">PyYAML</span>
+                            <span class="tag">CLI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. GhostTerminal -->
+                <div class="project-card fade-up" data-tags="frontend">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/ghost-terminal.png" alt="GhostTerminal" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(0,255,65,0.1), rgba(13,13,26,0.8)); color: #00ff41;">💻</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">GhostTerminal</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/ghost-terminal" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                                <a href="https://kayvour.github.io/ghost-terminal/" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Movie-style hacker terminal web app. Type anything and watch cinematic code snippets stream to screen in real time. Features real terminal commands, command history, mobile support, and a boot-up sequence.</p>
+                        <div class="project-tags">
+                            <span class="tag orange">JavaScript</span>
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag green">Live Demo</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /projects-grid -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <p>© 2026 Kaivalya Vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+            <p style="font-family: 'Fira Code', monospace; font-size: 0.78rem;">🐱 supervised by the cat</p>
+        </div>
+    </footer>
+
+    <div id="floatingCat">🐱</div>
+    <script src="../js/main.js"></script>
+    <script>
+        // ---- Filter logic ----
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    const tags = card.dataset.tags || '';
+                    const show = filter === 'all' || tags.split(' ').includes(filter);
+                    card.dataset.hidden = show ? 'false' : 'true';
+                    card.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
