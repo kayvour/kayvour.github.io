@@ -356,8 +356,11 @@ a.inline-link:hover::after { transform: scaleX(1); transform-origin: left; }
 @media (max-width: 768px) {
     .nav-links { gap: 0.1rem; }
     .nav-links a { font-size: 0.8rem; padding: 0.35rem 0.6rem; }
+    .nav-links a::after { display: none; }
     .container { padding: 0 1.25rem; }
 }
 @media (max-width: 560px) {
     .nav-links .hide-sm { display: none; }
+    .nav-links a { font-size: 0.75rem; padding: 0.3rem 0.5rem; }
+    .logo { font-size: 1rem; }
 }

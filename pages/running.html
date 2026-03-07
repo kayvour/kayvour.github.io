@@ -387,9 +387,18 @@
         }
 
         @media (max-width: 600px) {
-            .races-table-header, .race-row { grid-template-columns: 1fr 80px 90px; }
-            .races-table-header > *:last-child, .race-row > *:last-child { display: none; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+            .stat-card { padding: 1rem 0.75rem; }
+            .stat-number { font-size: 1.6rem; }
+            .prs-grid { grid-template-columns: repeat(2, 1fr); }
+            .races-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .races-table-header,
+            .race-row { grid-template-columns: 1fr 70px 80px; gap: 0.5rem; padding: 0.9rem 1rem; }
+            .races-table-header > *:last-child,
+            .race-row > *:last-child { display: none; }
+            .race-name { font-size: 0.82rem; }
+            .race-dist, .race-time { font-size: 0.75rem; }
+            .week-chart { padding: 1rem 0.75rem; }
         }
     </style>
 </head>
@@ -404,7 +413,7 @@
                 <li><a href="poetry.html">Poetry</a></li>
                 <li><a href="running.html" class="active">Running</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="#" class="nav-pill resume-link"><i class="fas fa-file-text"></i> Resume</a></li>
+                <li><a href="#" class="nav-pill resume-link hide-sm"><i class="fas fa-file-text"></i> Resume</a></li>
             </ul>
         </div>
     </nav>
@@ -489,6 +498,15 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#fc4c02"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
                 See full activity on Strava →
             </a>
+        </div>
+    </section>
+
+    <!-- RACES -->
+    <section class="races-section">
+        <div class="container">
+            <span class="section-label">// race history</span>
+            <h2 class="section-title" style="font-size: 1.8rem;">Race <span class="reveal-text">log</span></h2>
+            <p style="color: var(--text-muted); font-size: 0.82rem; font-family: 'Fira Code', monospace; margin-bottom: 1.5rem;">// add your races here when you have them</p>
         </div>
     </section>
 
