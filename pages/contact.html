@@ -64,6 +64,7 @@
         .contact-link-icon.pink   { background: rgba(240,147,251,0.15); color: var(--accent-pink); }
         .contact-link-icon.red    { background: rgba(186,0,0,0.15);     color: #e53935; }
         .contact-link-icon.strava { background: rgba(252,76,2,0.15);    color: #fc4c02; }
+        .contact-link-icon.hevy   { background: rgba(102,126,234,0.15); color: var(--accent-blue); }
         .contact-link-text small {
             display: block;
             font-family: 'Fira Code', monospace;
@@ -138,6 +139,17 @@
             font-size: 0.78rem;
             color: #34d399;
         }
+
+        /* section divider label */
+        .links-section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.25rem 0 0.1rem;
+        }
+
         @media (max-width: 768px) {
             .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
             .contact-note { position: static; }
@@ -153,7 +165,7 @@
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="tech.html">Tech</a></li>
                 <li><a href="poetry.html">Poetry</a></li>
-                <li><a href="running.html">Running</a></li>
+                <li><a href="running.html">Fitness</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
                 <li><a href="#" class="nav-pill resume-link hide-sm"><i class="fas fa-file-text"></i> Resume</a></li>
             </ul>
@@ -165,12 +177,15 @@
             <span class="section-label">// contact</span>
             <h1 class="section-title">Let's <span class="reveal-text">talk</span></h1>
             <p style="color: var(--text-secondary); max-width: 460px; line-height: 1.7; margin-top: 0.75rem; font-size: 0.95rem;">
-                Whether it's about code, collaboration, poetry, or just saying hi -- reach out on any of these.
+                Whether it's about code, collaboration, poetry, or just saying hi. Feel free to reach out.
             </p>
 
             <div class="contact-grid">
 
                 <div class="contact-links">
+
+                    <!-- Work / Social -->
+                    <div class="links-section-label">// work &amp; social</div>
 
                     <a href="mailto:kaivalyavaidya.work@gmail.com" class="contact-link-card fade-up">
                         <div class="contact-link-icon blue"><i class="fas fa-envelope"></i></div>
@@ -208,16 +223,8 @@
                         <i class="fas fa-arrow-right contact-link-arrow"></i>
                     </a>
 
-                    <a href="https://www.last.fm/user/kayvour" target="_blank" class="contact-link-card fade-up">
-                        <div class="contact-link-icon red">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.599 1.011C5.147 1.397.863 5.966.863 11.514c0 5.826 4.722 10.548 10.548 10.548 5.826 0 10.549-4.722 10.549-10.548 0-5.826-4.723-10.503-10.549-10.503h-.812zm1.08 4.37l1.39 3.812.655-3.812h2.577l-1.56 7.046-1.52-.014-1.52-4.16-1.52 4.16-1.52.014-1.56-7.046h2.577l.655 3.812 1.346-3.812z"/></svg>
-                        </div>
-                        <div class="contact-link-text">
-                            <small>last.fm</small>
-                            <span>kayvour</span>
-                        </div>
-                        <i class="fas fa-arrow-right contact-link-arrow"></i>
-                    </a>
+                    <!-- Fitness -->
+                    <div class="links-section-label" style="margin-top: 0.5rem;">// fitness</div>
 
                     <a href="https://www.strava.com/athletes/159002271" target="_blank" class="contact-link-card fade-up">
                         <div class="contact-link-icon strava">
@@ -230,12 +237,35 @@
                         <i class="fas fa-arrow-right contact-link-arrow"></i>
                     </a>
 
+                    <a href="https://hevy.com/user/kayvour" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon hevy"><i class="fas fa-dumbbell"></i></div>
+                        <div class="contact-link-text">
+                            <small>hevy</small>
+                            <span>kayvour</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
+                    <!-- Music -->
+                    <div class="links-section-label" style="margin-top: 0.5rem;">// music</div>
+
+                    <a href="https://www.last.fm/user/kayvour" target="_blank" class="contact-link-card fade-up">
+                        <div class="contact-link-icon red">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.599 1.011C5.147 1.397.863 5.966.863 11.514c0 5.826 4.722 10.548 10.548 10.548 5.826 0 10.549-4.722 10.549-10.548 0-5.826-4.723-10.503-10.549-10.503h-.812zm1.08 4.37l1.39 3.812.655-3.812h2.577l-1.56 7.046-1.52-.014-1.52-4.16-1.52 4.16-1.52.014-1.56-7.046h2.577l.655 3.812 1.346-3.812z"/></svg>
+                        </div>
+                        <div class="contact-link-text">
+                            <small>last.fm</small>
+                            <span>kayvour</span>
+                        </div>
+                        <i class="fas fa-arrow-right contact-link-arrow"></i>
+                    </a>
+
                 </div>
 
                 <div class="contact-note fade-up">
                     <div class="contact-note-card">
-                        <h3>Hey there 👋</h3>
-                        <p>CS student interested in AI/ML, frontend development, and building things that are either useful or interesting -- preferably both.</p>
+                        <h3>hey there 👋</h3>
+                        <p>CS student interested in AI/ML, frontend development, and building things that are either useful, interesting or both.</p>
                         <p>Open to collaborations, project ideas, internship opportunities, or just talking about running, poetry, or code.</p>
                         <p style="font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--text-muted);">
                             Response time: usually within 24h.
