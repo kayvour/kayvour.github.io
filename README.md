@@ -6,6 +6,5 @@ This is the source code for my personal portfolio website, showcasing my project
 **[kayvour.github.io](https://kayvour.github.io)**
 
 ## 📈 Future Enhancements
-- [ ] Contact form functionality
-- [ ] Performance optimizations
-- [ ] SEO improvements
+- Contact form functionality
+- Dark/Light mode toggle
