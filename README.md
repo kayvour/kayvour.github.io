@@ -1,4 +1,4 @@
-# Kaivalya Vaidya — Personal Portfolio
+# Kaivalya Vaidya: Personal Portfolio
 
 This is the source code for my personal portfolio website, showcasing my projects, skills, and creative work. Built with a minimalist approach using vanilla web technologies.
 
