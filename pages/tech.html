@@ -16,7 +16,6 @@
             z-index: 1;
         }
 
-        /* Filters */
         .filter-bar {
             display: flex;
             flex-wrap: wrap;
@@ -41,7 +40,6 @@
             background: rgba(102,126,234,0.08);
         }
 
-        /* Projects grid */
         .projects-section {
             padding: 2rem 0 6rem;
             position: relative;
@@ -162,7 +160,6 @@
             margin-top: auto;
         }
 
-        /* featured banner */
         .featured-badge {
             position: absolute;
             top: 12px;
@@ -203,11 +200,10 @@
             <span class="section-label">// tech</span>
             <h1 class="section-title">Things I've <span class="reveal-text">built</span></h1>
             <p style="color: var(--text-secondary); max-width: 520px; line-height: 1.7; margin-top: 0.75rem; font-size: 0.95rem;">
-                A mix of tools, experiments, and side projects — mostly Python and frontend. Some useful, some just for fun.
+                A mix of tools, experiments, and side projects, mostly Python and frontend. Some useful, some just for fun.
             </p>
             <div class="filter-bar">
-                <button class="filter-btn active" data-filter="all">All (7)</button>
-                <!-- count stays 7 -->
+                <button class="filter-btn active" data-filter="all">All (8)</button>
                 <button class="filter-btn" data-filter="python">Python</button>
                 <button class="filter-btn" data-filter="frontend">Frontend</button>
                 <button class="filter-btn" data-filter="nlp">NLP</button>
@@ -220,7 +216,57 @@
         <div class="container">
             <div class="projects-grid" id="projectsGrid">
 
-                <!-- 1. PaintMyPoem -->
+                <!-- 1. PolyOCR-Bench -->
+                <div class="project-card fade-up" data-tags="python ml">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/ocr.png" alt="PolyOCR-Bench" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none">🔍</div>
+                        <span class="featured-badge">featured</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">PolyOCR-Bench</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/poly-ocr" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag green">OCR</span>
+                            <span class="tag">Benchmarking</span>
+                            <span class="tag">Multilingual</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. UAV Pest Surveillance -->
+                <div class="project-card fade-up" data-tags="python ml">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/uav-pest-surveillance.png" alt="UAV Pest Surveillance" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(50,200,100,0.15), rgba(10,10,20,0.9));">🚁</div>
+                        <span class="featured-badge">featured</span>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">UAV Pest Surveillance</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/InvictusRex/UAV-Assisted-Agricultural-Pest-Surveillance" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Deep learning system for detecting crop pests via aerial drone imagery. YOLOv8-based pipeline achieving 85.5% accuracy across 12 insect classes. Supports day/night surveillance for precision agriculture.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag green">YOLOv8</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag pink">Drone / UAV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. PaintMyPoem -->
                 <div class="project-card fade-up" data-tags="python nlp">
                     <div class="project-img">
                         <img src="../assets/screenshots/PaintMyPoem.png" alt="PaintMyPoem" loading="lazy"
@@ -245,7 +291,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Cooking Assistant -->
+                <!-- 4. Cooking Assistant -->
                 <div class="project-card fade-up" data-tags="frontend">
                     <div class="project-img">
                         <img src="../assets/screenshots/cooking-assistant.png" alt="Cooking Assistant" loading="lazy"
@@ -271,32 +317,7 @@
                     </div>
                 </div>
 
-                <!-- 3. PolyOCR-Bench -->
-                <div class="project-card fade-up" data-tags="python ml">
-                    <div class="project-img">
-                        <img src="../assets/screenshots/ocr.png" alt="PolyOCR-Bench" loading="lazy"
-                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="project-img-placeholder" style="display:none">🔍</div>
-                        <span class="featured-badge">featured</span>
-                    </div>
-                    <div class="project-body">
-                        <div class="project-header">
-                            <h3 class="project-name">PolyOCR-Bench</h3>
-                            <div class="project-links-row">
-                                <a href="https://github.com/kayvour/poly-ocr" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                        <p class="project-desc">Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots.</p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag green">OCR</span>
-                            <span class="tag">Benchmarking</span>
-                            <span class="tag">Multilingual</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. RouteCast -->
+                <!-- 5. RouteCast -->
                 <div class="project-card fade-up" data-tags="frontend">
                     <div class="project-img">
                         <img src="../assets/screenshots/routecast.png" alt="RouteCast" loading="lazy"
@@ -320,30 +341,31 @@
                     </div>
                 </div>
 
-                <!-- 5. philosophy-days -->
-                <div class="project-card fade-up" data-tags="python">
+                <!-- 6. Mess Oracle -->
+                <div class="project-card fade-up" data-tags="frontend">
                     <div class="project-img">
-                        <img src="../assets/screenshots/philosophy-days.png" alt="philosophy-days" loading="lazy"
+                        <img src="../assets/screenshots/mess-oracle.png" alt="Mess Oracle" loading="lazy"
                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.15));">🏛️</div>
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(232,217,106,0.15), rgba(15,14,12,0.9));">🍽️</div>
                     </div>
                     <div class="project-body">
                         <div class="project-header">
-                            <h3 class="project-name">philosophy-days</h3>
+                            <h3 class="project-name">Mess Oracle</h3>
                             <div class="project-links-row">
-                                <a href="https://github.com/kayvour/philosophy-days" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                                <a href="https://github.com/kayvour/mess-oracle" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
                             </div>
                         </div>
-                        <p class="project-desc">Python tool that fetches philosopher birthdays, global ethics observances, and philosophy-related days for any given month and year. YAML-based data with support for fixed and floating holidays.</p>
+                        <p class="project-desc">Daily hostel mess food verdict engine. Scores every menu item against your veg/spice/craving/fitness preferences, builds an optimal plate, breaks down macros, and tells you whether to eat in or go outside.</p>
                         <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag pink">PyYAML</span>
-                            <span class="tag">CLI</span>
+                            <span class="tag orange">JavaScript</span>
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag green">No Dependencies</span>
+                            <span class="tag pink">Nutrition</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 6. GhostTerminal -->
+                <!-- 7. GhostTerminal -->
                 <div class="project-card fade-up" data-tags="frontend">
                     <div class="project-img">
                         <img src="../assets/screenshots/ghost-terminal.png" alt="GhostTerminal" loading="lazy"
@@ -367,6 +389,29 @@
                     </div>
                 </div>
 
+                <!-- 8. philosophy-days -->
+                <div class="project-card fade-up" data-tags="python">
+                    <div class="project-img">
+                        <img src="../assets/screenshots/philosophy.png" alt="philosophy-days" loading="lazy"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="project-img-placeholder" style="display:none; background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.15));">🏛️</div>
+                    </div>
+                    <div class="project-body">
+                        <div class="project-header">
+                            <h3 class="project-name">philosophy-days</h3>
+                            <div class="project-links-row">
+                                <a href="https://github.com/kayvour/philosophy-days" target="_blank" title="Source Code"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <p class="project-desc">Python tool that fetches philosopher birthdays, global ethics observances, and philosophy-related days for any given month and year. YAML-based data with support for fixed and floating holidays.</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag pink">PyYAML</span>
+                            <span class="tag">CLI</span>
+                        </div>
+                    </div>
+                </div>
+
             </div><!-- /projects-grid -->
         </div>
     </section>
@@ -381,7 +426,6 @@
     <div id="floatingCat">🐱</div>
     <script src="../js/main.js"></script>
     <script>
-        // ---- Filter logic ----
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-card');
 
