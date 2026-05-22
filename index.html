@@ -1,536 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaivalya Vaidya</title>
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg" />
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
-    <link rel="manifest" href="assets/favicon/site.webmanifest" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Fira+Code:wght@300;400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <style>
-        /* ---- HERO ---- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaivalya Vaidya</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: flex-end;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+#hero-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+.hero-inner {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 1100px;
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 6rem) 2rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 4rem; align-items: end;
+}
+.hero-kicker {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.72rem; color: var(--t3);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0; animation: riseUp 0.6s ease 0.1s forwards;
+}
+.hero-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 400; line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  opacity: 0; animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+}
+.hero-name .line2 { display: block; color: var(--gold); font-style: italic; }
+.hero-chips {
+  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  margin-bottom: 2rem;
+  opacity: 0; animation: riseUp 0.6s ease 0.35s forwards;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--line); border-radius: 3px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.7rem; color: var(--t3);
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.chip:hover { border-color: var(--line-s); color: var(--t2); transform: translateY(-2px); }
+.chip i { font-size: 0.65rem; }
+.hero-bio {
+  color: var(--t2); font-size: 0.9rem; line-height: 1.75;
+  font-weight: 300; max-width: 480px; margin-bottom: 2.5rem;
+  opacity: 0; animation: riseUp 0.6s ease 0.45s forwards;
+}
+.hero-actions {
+  display: flex; gap: 0.75rem; flex-wrap: wrap;
+  opacity: 0; animation: riseUp 0.6s ease 0.55s forwards;
+}
+.hero-socials {
+  display: flex; gap: 0.5rem; margin-top: 1.5rem;
+  opacity: 0; animation: riseUp 0.6s ease 0.65s forwards;
+}
 
-        .hero-inner {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 4rem;
-            align-items: center;
-            padding: 8rem 2rem 4rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
+/* NOW CARD */
+.now-card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: 4px; padding: 1.5rem;
+  opacity: 0; animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+}
+.now-card-label {
+  font-family: 'Geist Mono', monospace; font-size: 0.62rem;
+  color: var(--t3); letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.now-item {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding: 0.75rem 0; border-bottom: 1px solid var(--line);
+}
+.now-item:last-child { border-bottom: none; padding-bottom: 0; }
+.now-dot {
+  width: 6px; height: 6px; border-radius: 50%; margin-top: 0.35rem; flex-shrink: 0;
+}
+.now-dot.blue  { background: var(--teal); }
+.now-dot.pink  { background: var(--mauve); }
+.now-dot.gold  { background: var(--gold); }
+.now-item-text small {
+  display: block; font-family: 'Geist Mono', monospace;
+  font-size: 0.6rem; color: var(--t3); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 0.2rem;
+}
+.now-item-text span { font-size: 0.82rem; color: var(--t2); font-weight: 300; }
 
-        .hero-eyebrow {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.2s forwards;
-        }
+/* WORLD SECTION */
+.world-section {
+  padding: 5rem 0; border-bottom: 1px solid var(--line);
+}
+.world-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; margin-top: 3rem;
+  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+}
+.world-card {
+  background: var(--bg-2); padding: 2rem;
+  border-right: 1px solid var(--line);
+  transition: background 0.2s; text-decoration: none; display: block;
+}
+.world-card:hover { background: var(--bg-3); }
+.world-card-icon {
+  width: 38px; height: 38px; border-radius: 3px;
+  border: 1px solid var(--line); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 0.9rem; margin-bottom: 1.25rem;
+}
+.world-card-icon.gold  { color: var(--gold);  border-color: rgba(232,213,163,0.2); background: rgba(232,213,163,0.06); }
+.world-card-icon.teal  { color: var(--teal);  border-color: rgba(168,196,184,0.2); background: rgba(168,196,184,0.06); }
+.world-card-icon.mauve { color: var(--mauve); border-color: rgba(196,168,184,0.2); background: rgba(196,168,184,0.06); }
+.world-card h3 {
+  font-family: 'Instrument Serif', serif; font-size: 1.15rem;
+  font-weight: 400; color: var(--t1); margin-bottom: 0.5rem;
+}
+.world-card p { font-size: 0.82rem; color: var(--t3); line-height: 1.6; margin-bottom: 1.25rem; }
+.world-link {
+  font-family: 'Geist Mono', monospace; font-size: 0.68rem;
+  color: var(--t3); display: flex; align-items: center; gap: 0.35rem;
+  transition: color 0.2s;
+}
+.world-card:hover .world-link { color: var(--t2); }
+.world-card:hover .world-link i { transform: translateX(3px); }
+.world-link i { transition: transform 0.2s; }
 
-        .hero-name {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 0.95;
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.35s forwards;
-        }
+/* FEATURED PROJECTS */
+.featured-section { padding: 5rem 0; border-bottom: 1px solid var(--line); }
+.projects-row {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; margin-top: 2.5rem;
+  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+}
+.proj-card {
+  background: var(--bg-2); padding: 1.75rem;
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 0.75rem;
+  transition: background 0.2s;
+}
+.proj-card:hover { background: var(--bg-3); }
+.proj-num {
+  font-family: 'Geist Mono', monospace; font-size: 0.65rem;
+  color: var(--t3); letter-spacing: 0.08em;
+}
+.proj-name {
+  font-family: 'Instrument Serif', serif; font-size: 1.15rem;
+  font-weight: 400; color: var(--t1);
+}
+.proj-desc { font-size: 0.82rem; color: var(--t3); line-height: 1.65; flex: 1; font-weight: 300; }
+.proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; }
+.proj-links { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
+.proj-links a {
+  width: 28px; height: 28px; display: flex; align-items: center;
+  justify-content: center; border: 1px solid var(--line); border-radius: 3px;
+  color: var(--t3); font-size: 0.75rem; text-decoration: none; transition: all 0.2s;
+}
+.proj-links a:hover { border-color: var(--line-s); color: var(--t1); }
 
-        .hero-name .first { color: var(--text-primary); }
-        .hero-name .last {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: block;
-        }
+/* KEYFRAMES */
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-        .hero-roles {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.5s forwards;
-        }
-
-        .role-chip {
-            padding: 0.3rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            border: 1px solid;
-            font-family: 'DM Sans', sans-serif;
-        }
-        .role-chip.tech { color: var(--accent-blue); border-color: rgba(102,126,234,0.3); background: rgba(102,126,234,0.07); }
-        .role-chip.poetry { color: var(--accent-pink); border-color: rgba(240,147,251,0.3); background: rgba(240,147,251,0.07); }
-        .role-chip.run { color: #f7971e; border-color: rgba(247,151,30,0.3); background: rgba(247,151,30,0.07); }
-
-        .hero-bio {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            max-width: 480px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.65s forwards;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 2.5rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.8s forwards;
-        }
-
-        .hero-socials {
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.95s forwards;
-        }
-
-        /* location */
-        .hero-location {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.2s forwards;
-        }
-        .hero-location i { color: var(--accent-pink); }
-
-        /* right side: "now" card */
-        .now-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 1.8rem;
-            width: 280px;
-            flex-shrink: 0;
-            opacity: 0;
-            animation: fadeSlideUp 0.6s ease 0.6s forwards;
-        }
-
-        .now-card-title {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.72rem;
-            color: var(--accent-blue);
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-        }
-
-        .now-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            padding: 0.85rem 0;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .now-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .now-item:first-of-type { padding-top: 0; }
-
-        .now-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        .now-icon.blue { background: rgba(102,126,234,0.15); color: var(--accent-blue); }
-        .now-icon.pink { background: rgba(240,147,251,0.15); color: var(--accent-pink); }
-        .now-icon.orange { background: rgba(247,151,30,0.15); color: #f7971e; }
-
-        .now-text small {
-            display: block;
-            font-size: 0.7rem;
-            font-family: 'Fira Code', monospace;
-            color: var(--text-muted);
-            margin-bottom: 0.15rem;
-        }
-        .now-text p {
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            line-height: 1.4;
-        }
-
-        /* ---- THREE WORLDS ---- */
-        .worlds {
-            padding: 6rem 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .worlds-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .worlds-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-        }
-
-        .world-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2.2rem;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.35s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            min-height: 260px;
-        }
-
-        .world-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.35s ease;
-        }
-
-        .world-card.tech::before { background: radial-gradient(ellipse at top left, rgba(102, 126, 234, 0.15), transparent 70%); }
-        .world-card.poetry::before { background: radial-gradient(ellipse at top left, rgba(240, 147, 251, 0.15), transparent 70%); }
-        .world-card.run::before { background: radial-gradient(ellipse at top left, rgba(247, 151, 30, 0.15), transparent 70%); }
-
-        .world-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-        }
-        .world-card:hover::before { opacity: 1; }
-        .world-card.tech:hover { border-color: rgba(102,126,234,0.5); }
-        .world-card.poetry:hover { border-color: rgba(240,147,251,0.5); }
-        .world-card.run:hover { border-color: rgba(247,151,30,0.5); }
-
-        .world-emoji {
-            font-size: 2.5rem;
-            line-height: 1;
-        }
-
-        .world-label {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
-        .world-card.tech .world-label { color: var(--accent-blue); }
-        .world-card.poetry .world-label { color: var(--accent-pink); }
-        .world-card.run .world-label { color: #f7971e; }
-
-        .world-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .world-desc {
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            flex: 1;
-        }
-
-        .world-arrow {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            transition: transform 0.25s ease, color 0.25s ease;
-            align-self: flex-end;
-        }
-        .world-card:hover .world-arrow {
-            transform: translateX(4px);
-            color: var(--text-secondary);
-        }
-
-        /* ---- QUICK TECH STACK ---- */
-        .stack-section {
-            padding: 5rem 0;
-            position: relative;
-            z-index: 1;
-        }
-        .stack-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 2rem;
-        }
-        .stack-chip {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            padding: 0.4rem 0.9rem;
-            border-radius: 10px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            font-size: 0.82rem;
-            color: var(--text-secondary);
-            font-family: 'Fira Code', monospace;
-            transition: all 0.2s ease;
-        }
-        .stack-chip:hover {
-            border-color: var(--accent-blue);
-            color: var(--text-primary);
-            background: rgba(102,126,234,0.07);
-        }
-
-        /* ---- KEYFRAMES ---- */
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ---- RESPONSIVE ---- */
-        @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-            .now-card { width: 100%; max-width: 400px; }
-            .worlds-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 600px) {
-            .hero-name { font-size: clamp(3rem, 12vw, 5rem); }
-        }
-    </style>
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .now-card { display: none; }
+  .world-grid { grid-template-columns: 1fr; }
+  .projects-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .hero-name { font-size: clamp(2.8rem,12vw,3.5rem); }
+}
+</style>
 </head>
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="logo">Kaivalya Vaidya</a>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="pages/tech.html">Tech</a></li>
-                <li><a href="pages/poetry.html">Poetry</a></li>
-                <li><a href="pages/running.html">Fitness</a></li>
-                <li><a href="pages/contact.html">Contact</a></li>
-                <li><a href="#" id="resumeBtn" class="nav-pill resume-link">
-                    <i class="fas fa-file-text"></i> Resume
-                </a></li>
-            </ul>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Kaivalya Vaidya</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">home</a></li>
+      <li><a href="pages/tech.html">tech</a></li>
+      <li><a href="pages/poetry.html">poetry</a></li>
+      <li><a href="pages/running.html">fitness</a></li>
+      <li><a href="pages/contact.html">contact</a></li>
+      <li><a href="#" class="nav-pill resume-link hide-sm">resume ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-kicker">// cs student · builder · runner · poet</div>
+      <h1 class="hero-name">Kaivalya<span class="line2">Vaidya</span></h1>
+      <div class="hero-chips">
+        <span class="chip"><i class="fas fa-code"></i> AI / ML</span>
+        <span class="chip"><i class="fas fa-layer-group"></i> Frontend</span>
+        <span class="chip"><i class="fas fa-running"></i> Distance Running</span>
+        <span class="chip"><i class="fas fa-feather-alt"></i> Poetry</span>
+        <span class="chip"><i class="fas fa-location"></i>  India</span>
+      </div>
+      <p class="hero-bio">CS student interested in AI/ML, frontend development, and building things that are either useful, interesting, or both. I also run long distances and write poetry, sometimes at the same time.</p>
+      <div class="hero-actions">
+        <a href="pages/tech.html" class="btn btn-primary">View Projects</a>
+        <a href="pages/contact.html" class="btn btn-ghost">Get in Touch</a>
+        <a href="#" class="btn btn-ghost resume-link">Resume ↗</a>
+      </div>
+      <div class="hero-socials">
+        <div class="social-links">
+          <a href="mailto:kaivalyavaidya.work@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://github.com/kayvour" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
-    </nav>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-left">
-                <div class="hero-location"><i class="fas fa-map-marker-alt"></i> India</div>
-                <div class="hero-eyebrow cursor-blink">// welcome to my website, i guess?</div>
-                <h1 class="hero-name">
-                    <span class="first">Kaivalya Vaidya</span>
-                </h1>
-                <div class="hero-roles">
-                    <span class="role-chip tech">CS Student · AI/ML</span>
-                    <span class="role-chip poetry">Poet</span>
-                    <span class="role-chip run">Runner &amp; Lifter</span>
-                </div>
-                <p class="hero-bio">
-                    I build things on the internet, write poetry that nobody asked for, and voluntarily hurt myself at the gym and on long runs.
-                </p>
-                <div class="hero-actions">
-                    <a href="pages/tech.html" class="btn btn-primary">
-                        <i class="fas fa-code"></i> View Tech
-                    </a>
-                    <a href="pages/contact.html" class="btn btn-ghost">Get in touch</a>
-                </div>
-                <div class="hero-socials">
-                    <div class="social-links">
-                        <a href="https://github.com/kayvour" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://last.fm/kayvour" target="_blank" aria-label="Last.fm" title="Last.fm">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M10.599 1.011C5.147 1.397.863 5.966.863 11.514c0 5.826 4.722 10.548 10.548 10.548 5.826 0 10.549-4.722 10.549-10.548 0-5.826-4.723-10.503-10.549-10.503h-.812zm1.08 4.37l1.39 3.812.655-3.812h2.577l-1.56 7.046-1.52-.014-1.52-4.16-1.52 4.16-1.52.014-1.56-7.046h2.577l.655 3.812 1.346-3.812z"/></svg>
-                        </a>
-                        <a href="https://www.strava.com/athletes/159002271" target="_blank" aria-label="Strava" title="Strava">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="now-card">
-                <div class="now-card-title">// currently</div>
-                <div class="now-item">
-                    <div class="now-icon blue"><i class="fas fa-code"></i></div>
-                    <div class="now-text">
-                        <small>building</small>
-                        <p>PolyOCR - An OCR benchmarking tool</p>
-                    </div>
-                </div>
-                <div class="now-item">
-                    <div class="now-icon pink"><i class="fas fa-feather-alt"></i></div>
-                    <div class="now-text">
-                        <small>writing</small>
-                        <p>Poems at @zephyrsofpoetry</p>
-                    </div>
-                </div>
-                <div class="now-item">
-                    <div class="now-icon orange"><i class="fas fa-dumbbell"></i></div>
-                    <div class="now-text">
-                        <small>training</small>
-                        <p>Running & lifting. Both hurt.</p>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="now-card">
+      <div class="now-card-label">// now</div>
+      <div class="now-item">
+        <div class="now-dot blue"></div>
+        <div class="now-item-text">
+          <small>building</small>
+          <span>PolyOCR-Bench — multilingual OCR benchmarking</span>
         </div>
-    </section>
-
-    <!-- THREE WORLDS -->
-    <section class="worlds">
-        <div class="container">
-            <div class="worlds-header">
-                <span class="section-label">// explore</span>
-                <h2 class="section-title">Three <span class="reveal-text">worlds</span></h2>
-            </div>
-            <div class="worlds-grid">
-                <a href="pages/tech.html" class="world-card tech fade-up">
-                    <div class="world-emoji">💻</div>
-                    <div>
-                        <div class="world-label">Computer Science</div>
-                        <div class="world-title">Tech</div>
-                    </div>
-                    <p class="world-desc">Frontend dev, Python tools, NLP experiments, OCR benchmarks, hacker terminals.</p>
-                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> See my projects</div>
-                </a>
-                <a href="pages/poetry.html" class="world-card poetry fade-up">
-                    <div class="world-emoji">🌿</div>
-                    <div>
-                        <div class="world-label">Creativity</div>
-                        <div class="world-title">Poetry</div>
-                    </div>
-                    <p class="world-desc">Things I wrote at @zephyrsofpoetry. About bad lighting, ceilings, and the curtains lost.</p>
-                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> Read poems</div>
-                </a>
-                <a href="pages/running.html" class="world-card run fade-up">
-                    <div class="world-emoji">🏋️</div>
-                    <div>
-                        <div class="world-label">Fitness</div>
-                        <div class="world-title">Running & Lifting</div>
-                    </div>
-                    <p class="world-desc">627.4km logged, 166 runs. Bench 75kg, squat &amp; deadlift 110kg. All voluntary.</p>
-                    <div class="world-arrow"><i class="fas fa-arrow-right"></i> See my training</div>
-                </a>
-            </div>
+      </div>
+      <div class="now-item">
+        <div class="now-dot pink"></div>
+        <div class="now-item-text">
+          <small>writing</small>
+          <span>New poems at @zephyrsofpoetry</span>
         </div>
-    </section>
-
-    <!-- QUICK STACK -->
-    <section class="stack-section">
-        <div class="container">
-            <span class="section-label">// tech stack</span>
-            <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 0.5rem;">What I work with</h2>
-            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0;">
-                <a href="pages/tech.html" style="color: var(--accent-blue); text-decoration: none;">See full projects →</a>
-            </p>
-            <div class="stack-row">
-                <span class="stack-chip fade-up">🐍 Python</span>
-                <span class="stack-chip fade-up">⚡ JavaScript</span>
-                <span class="stack-chip fade-up">💻 C</span>
-                <span class="stack-chip fade-up">💻 C++</span>
-                <span class="stack-chip fade-up">🐚 Bash</span>
-                <span class="stack-chip fade-up">🗃️ SQL</span>
-                <span class="stack-chip fade-up">📝 Markdown</span>
-
-                <span class="stack-chip fade-up">⚛️ React</span>
-                <span class="stack-chip fade-up">🌐 HTML</span>
-                <span class="stack-chip fade-up">🎨 CSS</span>
-                <span class="stack-chip fade-up">🔥 Flask</span>
-                <span class="stack-chip fade-up">🔌 REST API</span>
-                <span class="stack-chip fade-up">🎙️ Web Speech API</span>
-
-                <span class="stack-chip fade-up">🔥 PyTorch</span>
-                <span class="stack-chip fade-up">🤗 Transformers</span>
-                <span class="stack-chip fade-up">🧠 CLIP</span>
-                <span class="stack-chip fade-up">🎯 YOLOv8</span>
-                <span class="stack-chip fade-up">⚡ Ultralytics</span>
-                <span class="stack-chip fade-up">👁️ OpenCV</span>
-                <span class="stack-chip fade-up">🔍 EasyOCR</span>
-                <span class="stack-chip fade-up">🔢 NumPy</span>
-                <span class="stack-chip fade-up">📊 Pandas</span>
-                <span class="stack-chip fade-up">📈 scikit-learn</span>
-                <span class="stack-chip fade-up">🧠 NLTK</span>
-                <span class="stack-chip fade-up">💬 TextBlob</span>
-                <span class="stack-chip fade-up">📉 Matplotlib</span>
-                <span class="stack-chip fade-up">🔍 Tesseract OCR</span>
-
-                <span class="stack-chip fade-up">🗃️ MongoDB</span>
-                <span class="stack-chip fade-up">🗄️ MySQL</span>
-                <span class="stack-chip fade-up">🔥 Firebase</span>
-
-                <span class="stack-chip fade-up">🎨 Figma</span>
-                <span class="stack-chip fade-up">🖌️ Canva</span>
-                <span class="stack-chip fade-up">🖼️ UI/UX</span>
-                <span class="stack-chip fade-up">▲ Vercel</span>
-                <span class="stack-chip fade-up">🐙 Git</span>
-                <span class="stack-chip fade-up">🐙 GitHub</span>
-                <span class="stack-chip fade-up">💻 VS Code</span>
-                <span class="stack-chip fade-up">🕵️ OSINT</span>
-            </div>
+      </div>
+      <div class="now-item">
+        <div class="now-dot gold"></div>
+        <div class="now-item-text">
+          <small>training</small>
+          <span>654.8 km logged on Strava</span>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- CONTACT CTA -->
-    <section class="stack-section" style="padding-top: 2rem; padding-bottom: 2rem;">
-        <div class="container">
-            <span class="section-label">// contact</span>
-            <h2 class="section-title" style="font-size: 2rem;">Get in <span class="reveal-text">touch</span></h2>
-            <p style="color: var(--text-secondary); font-size: 0.95rem; margin: 0.75rem 0 1.75rem; max-width: 420px; line-height: 1.7;">
-                Whether it's about code, collaboration, or just saying hi.
-            </p>
-            <a href="pages/contact.html" class="btn btn-primary" style="font-size: 0.9rem;">
-                <i class="fas fa-arrow-right"></i> Go to contact page
-            </a>
+<section class="world-section">
+  <div class="container">
+    <span class="section-label">// my world</span>
+    <h2 class="section-title">Three <em>worlds</em></h2>
+    <div class="world-grid">
+      <a href="pages/tech.html" class="world-card fade-up">
+        <div class="world-card-icon gold"><i class="fas fa-terminal"></i></div>
+        <h3>Tech</h3>
+        <p>Python, ML, frontend. Eight projects and counting. Some useful, some just for fun.</p>
+        <span class="world-link">view projects <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="pages/poetry.html" class="world-card fade-up">
+        <div class="world-card-icon mauve"><i class="fas fa-feather-alt"></i></div>
+        <h3>Poetry</h3>
+        <p>Words on ceilings and bad lighting. Five poems here, more at @zephyrsofpoetry.</p>
+        <span class="world-link">read poems <i class="fas fa-arrow-right"></i></span>
+      </a>
+      <a href="pages/running.html" class="world-card fade-up">
+        <div class="world-card-icon teal"><i class="fas fa-running"></i></div>
+        <h3>Fitness</h3>
+        <p>654.8 km on foot. Distance running and lifting. Both hurt. Both voluntary.</p>
+        <span class="world-link">see stats <i class="fas fa-arrow-right"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="featured-section">
+  <div class="container">
+    <span class="section-label">// featured projects</span>
+    <h2 class="section-title">Things I've <em>built</em></h2>
+    <div class="projects-row">
+      <div class="proj-card fade-up">
+        <div class="proj-num">01 — featured</div>
+        <div class="proj-name">PolyOCR-Bench</div>
+        <p class="proj-desc">Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics and exports results as CSV, JSON, and comparison plots.</p>
+        <div class="proj-tags">
+          <span class="tag">Python</span><span class="tag cool">OCR</span><span class="tag">Benchmarking</span>
         </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-inner">
-            <p>© 2026 Kaivalya Vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
-            <p style="font-family: 'Fira Code', monospace; font-size: 0.78rem;">🐱 supervised by the cat</p>
+        <div class="proj-links">
+          <a href="https://github.com/kayvour/poly-ocr" target="_blank"><i class="fab fa-github"></i></a>
         </div>
-    </footer>
+      </div>
+      <div class="proj-card fade-up">
+        <div class="proj-num">02 — featured</div>
+        <div class="proj-name">PaintMyPoem</div>
+        <p class="proj-desc">Transforms poems into abstract art using NLP and sentiment analysis. Maps tone and imagery to shapes and colors — a visual representation of poetic emotion.</p>
+        <div class="proj-tags">
+          <span class="tag">Python</span><span class="tag soft">NLP</span><span class="tag soft">Sentiment</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/kayvour/PaintMyPoem" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+      <div class="proj-card fade-up">
+        <div class="proj-num">03 — featured</div>
+        <div class="proj-name">Cooking Assistant</div>
+        <p class="proj-desc">Hands-free recipe companion using the Web Speech API. Follow step-by-step instructions and navigate recipes entirely by voice.</p>
+        <div class="proj-tags">
+          <span class="tag warm">JavaScript</span><span class="tag">Web Speech API</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/kayvour/cooking-assistant" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://cooking-assistant-phi.vercel.app/" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;">
+      <a href="pages/tech.html" class="btn btn-ghost">All projects <i class="fas fa-arrow-right" style="font-size:0.7rem;"></i></a>
+    </div>
+  </div>
+</section>
 
-    <div id="floatingCat">🐱</div>
+<section style="padding:5rem 0;border-bottom:1px solid var(--line);">
+  <div class="container">
+    <span class="section-label">// tech stack</span>
+    <h2 class="section-title">Tools &amp; <em>Technologies</em></h2>
 
-    <script src="js/main.js"></script>
+    <div style="display:flex;flex-direction:column;gap:2rem;margin-top:2.5rem;">
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">languages</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag warm">Python</span><span class="tag warm">JavaScript</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Markdown</span>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">frameworks &amp; web</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag cool">React</span><span class="tag cool">HTML5</span><span class="tag cool">CSS3</span><span class="tag cool">Flask</span><span class="tag cool">REST APIs</span><span class="tag cool">Web Speech API</span>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">ai / ml</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag soft">PyTorch</span><span class="tag soft">Hugging Face Transformers</span><span class="tag soft">CLIP</span><span class="tag soft">YOLOv8</span><span class="tag soft">Ultralytics</span><span class="tag soft">OpenCV</span><span class="tag soft">EasyOCR</span><span class="tag soft">Tesseract OCR</span><span class="tag soft">NLTK</span><span class="tag soft">TextBlob</span>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">data &amp; viz</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag warm">NumPy</span><span class="tag warm">Pandas</span><span class="tag warm">scikit-learn</span><span class="tag warm">Matplotlib</span>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">databases &amp; infra</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">Firebase</span><span class="tag cool">Vercel</span><span class="tag">Git</span><span class="tag">GitHub</span>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">tools &amp; other</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag">VS Code</span><span class="tag soft">Figma</span><span class="tag soft">Canva</span><span class="tag soft">UI/UX Design</span><span class="tag warm">Ahrefs</span><span class="tag warm">Microsoft Clarity</span><span class="tag warm">Google Ads</span><span class="tag">OSINT</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p>© 2026 kaivalya vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+    <p>🐱 supervised by the cat</p>
+  </div>
+</footer>
+
+<div id="floatingCat">🐱</div>
+<script src="js/main.js"></script>
 </body>
 </html>

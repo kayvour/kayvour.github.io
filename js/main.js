@@ -1,146 +1,168 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-        // ---- Scroll fade-in ----
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                io.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  // ---- Scroll fade-in ----
+  // Stagger siblings first (before observer fires)
+  document.querySelectorAll('.fade-up').forEach(el => {
+    const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('fade-up'));
+    const idx = siblings.indexOf(el);
+    el.style.transitionDelay = (idx * 60) + 'ms';
+  });
 
-    // Group fade-up elements by parent so stagger resets per section
-    const groups = new Map();
-    document.querySelectorAll('.fade-up').forEach(el => {
-        const parent = el.parentElement;
-        if (!groups.has(parent)) groups.set(parent, []);
-        groups.get(parent).push(el);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
     });
-    groups.forEach((els, parent) => {
-        els.forEach((el, i) => {
-            el.style.transitionDelay = (i * 55) + 'ms';
-        });
-        // Observe the parent; when it enters view, reveal all children at once (staggered via delay)
-        const parentIO = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    els.forEach(el => el.classList.add('visible'));
-                    parentIO.unobserve(parent);
-                }
-            });
-        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-        parentIO.observe(parent);
+  }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // ---- Resume ----
+  document.querySelectorAll('.resume-link').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const inner = window.location.pathname.includes('/pages/');
+      window.open((inner ? '../' : '') + 'assets/Kaivalya_Vaidya_Resume.pdf', '_blank');
     });
+  });
 
-    // ---- Reveal-text: observe and trigger ----
-    const revealIO = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                revealIO.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.2 });
+  // ---- Smooth scroll ----
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
 
-    document.querySelectorAll('.reveal-text').forEach(el => revealIO.observe(el));
+  // ---- Keyboard shortcuts ----
+  document.addEventListener('keydown', e => {
+    if (e.target.matches('input,textarea')) return;
+    if (e.key === 'r' || e.key === 'R') { const b = document.querySelector('.resume-link'); if (b) b.click(); }
+  });
 
-    // ---- Hero name: slide-up words on load ----
-    const heroName = document.querySelector('.hero-name');
-    if (heroName) {
-        heroName.querySelectorAll('.first, .last').forEach((el, i) => {
-            el.style.display = 'block';
-            el.style.overflow = 'hidden';
-            const inner = document.createElement('span');
-            inner.textContent = el.textContent;
-            inner.style.cssText = [
-                'display: block;',
-                'transform: translateY(110%);',
-                'opacity: 0;',
-                'transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) ' + (0.3 + i * 0.13) + 's, opacity 0.6s ease ' + (0.3 + i * 0.13) + 's;'
-            ].join(' ');
-            el.textContent = '';
-            el.appendChild(inner);
-            requestAnimationFrame(() => requestAnimationFrame(() => {
-                inner.style.transform = 'translateY(0)';
-                inner.style.opacity = '1';
-            }));
-        });
+  // ---- Cat ----
+  const catEl = document.getElementById('floatingCat');
+  const msgs = [
+    'sudo feed-me 🐟','git commit -m "meow"','404: catnip not found',
+    'npm install cat-nap',"console.log('purr')",'deploy purrduction complete',
+    'Alt+Tab? i prefer Alt+Nap.','i debug by sitting on keyboard.',
+    '*sits directly on your laptop*','segfault in treat dispenser','napping in O(1)'
+  ];
+  let clicks = 0;
+  if (catEl) {
+    catEl.addEventListener('click', () => {
+      clicks++;
+      if (clicks % 7 === 0) {
+        catEl.style.transform = 'scale(2) rotate(720deg)';
+        catEl.textContent = '😸';
+        setTimeout(() => { catEl.style.transform = ''; catEl.textContent = '🐱'; }, 900);
+      } else {
+        catEl.style.transform = 'scale(1.2) rotate(10deg)';
+        setTimeout(() => { catEl.style.transform = ''; }, 250);
+      }
+      document.querySelectorAll('.cat-bubble').forEach(b => b.remove());
+      const div = document.createElement('div');
+      div.className = 'cat-bubble';
+      div.textContent = msgs[Math.floor(Math.random() * msgs.length)];
+      document.body.appendChild(div);
+      setTimeout(() => div.remove(), 4000);
+    });
+  }
+
+  // ---- Hero cursor canvas ----
+  const canvas = document.getElementById('hero-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W, H, pts = [], mx = -999, my = -999;
+    const N = 140, PUSH = 115, RING = 230;
+    const COLS = ['232,213,163','168,196,184','196,168,184'];
+
+    function Pt() {
+      this.x = Math.random() * W; this.y = Math.random() * H;
+      this.hx = this.x; this.hy = this.y;
+      this.vx = (Math.random()-0.5)*0.28; this.vy = (Math.random()-0.5)*0.28;
+      const big = Math.random() < 0.12;
+      this.r = big ? Math.random()*2.2+1.4 : Math.random()*1.0+0.22;
+      this.big = big;
+      const c = COLS[Math.floor(Math.random()*COLS.length)];
+      this.col  = c;
+      this.fill = 'rgba('+c+','+(big ? Math.random()*0.75+0.3 : Math.random()*0.5+0.12)+')';
+      this.sc   = 'rgba('+c+',';
     }
 
-    // ---- Floating cat ----
-    const catEl = document.getElementById('floatingCat');
-    const catMessages = [
-        'sudo feed-me 🐟',
-        'git commit -m "meow"',
-        '404: catnip not found 🌿',
-        'npm install cat-nap',
-        "console.log('purr') 💭",
-        'deploy purrduction complete 🚀',
-        'Alt+Tab? I prefer Alt+Nap.',
-        'I debug by sitting on the keyboard.',
-        '*sits directly on your laptop*',
-        'segfault in the treat dispenser',
-        'currently: napping in O(1)',
-    ];
-
-    let catClicks = 0;
-
-    if (catEl) {
-        catEl.addEventListener('click', () => {
-            catClicks++;
-            if (catClicks % 7 === 0) {
-                catEl.style.transform = 'scale(2) rotate(720deg)';
-                catEl.textContent = '😸';
-                setTimeout(() => { catEl.style.transform = ''; catEl.textContent = '🐱'; }, 900);
-            } else {
-                catEl.style.transform = 'scale(1.3) rotate(15deg)';
-                setTimeout(() => { catEl.style.transform = ''; }, 300);
-            }
-            showCatBubble();
-        });
+    function size() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
 
-    function showCatBubble() {
-        document.querySelectorAll('.cat-bubble').forEach(b => b.remove());
-        const msg = catMessages[Math.floor(Math.random() * catMessages.length)];
-        const div = document.createElement('div');
-        div.className = 'cat-bubble';
-        div.textContent = msg;
-        document.body.appendChild(div);
-        setTimeout(() => div.remove(), 4000);
-    }
-
-    // ---- Resume button ----
-    document.querySelectorAll('#resumeBtn, .resume-link').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            const isInner = window.location.pathname.includes('/pages/');
-            window.open((isInner ? '../' : '') + 'assets/Kaivalya_Vaidya_Resume.pdf', '_blank');
-        });
-    });
-
-    // ---- Smooth scroll ----
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            const target = document.querySelector(a.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    // ---- Keyboard shortcuts ----
-    document.addEventListener('keydown', e => {
-        if (e.target.matches('input,textarea')) return;
-        if (e.key === 'r' || e.key === 'R') {
-            const btn = document.querySelector('.resume-link, #resumeBtn');
-            if (btn) btn.click();
+    function tick() {
+      ctx.clearRect(0,0,W,H);
+      // cursor glow
+      if (mx > -900) {
+        const cg = ctx.createRadialGradient(mx,my,0,mx,my,180);
+        cg.addColorStop(0,'rgba(232,213,163,0.055)');
+        cg.addColorStop(1,'rgba(0,0,0,0)');
+        ctx.beginPath(); ctx.arc(mx,my,180,0,6.28);
+        ctx.fillStyle=cg; ctx.fill();
+      }
+      for (let i=0;i<pts.length;i++) {
+        const a = pts[i];
+        const dx=a.x-mx, dy=a.y-my, d=Math.hypot(dx,dy);
+        if (d<PUSH && d>0.5) {
+          const f=(1-d/PUSH)*1.5; a.vx+=(dx/d)*f; a.vy+=(dy/d)*f;
+        } else if (d<RING && d>PUSH) {
+          const f=((d-PUSH)/(RING-PUSH))*0.025; a.vx-=(dx/d)*f; a.vy-=(dy/d)*f;
         }
-    });
+        a.vx+=(a.hx-a.x)*0.0012; a.vy+=(a.hy-a.y)*0.0012;
+        a.vx*=0.92; a.vy*=0.92;
+        a.x+=a.vx; a.y+=a.vy;
+        if(a.x<0)a.x=0,a.vx*=-1; if(a.x>W)a.x=W,a.vx*=-1;
+        if(a.y<0)a.y=0,a.vy*=-1; if(a.y>H)a.y=H,a.vy*=-1;
+
+        for (let j=i+1;j<pts.length;j++) {
+          const b=pts[j], dd=Math.hypot(a.x-b.x,a.y-b.y);
+          if(dd<140) {
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.strokeStyle=a.sc+((1-dd/140)*0.13)+')';
+            ctx.lineWidth= a.big||b.big ? 0.8 : 0.5; ctx.stroke();
+          }
+        }
+        // big stars get a soft halo
+        if (a.big) {
+          const g = ctx.createRadialGradient(a.x,a.y,0,a.x,a.y,a.r*4);
+          g.addColorStop(0,'rgba('+a.col+',0.15)');
+          g.addColorStop(1,'rgba('+a.col+',0)');
+          ctx.beginPath(); ctx.arc(a.x,a.y,a.r*4,0,6.28);
+          ctx.fillStyle=g; ctx.fill();
+        }
+        ctx.beginPath(); ctx.arc(a.x,a.y,a.r,0,6.28);
+        ctx.fillStyle=a.fill; ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('mousemove', e => {
+      const r=canvas.getBoundingClientRect();
+      mx=e.clientX-r.left; my=e.clientY-r.top;
+    }, {passive:true});
+    window.addEventListener('mouseleave', ()=>{ mx=-999; my=-999; });
+    window.addEventListener('resize', size);
+
+    function start() {
+      size();
+      pts = Array.from({length:N}, ()=>new Pt());
+      tick();
+    }
+    // window.load guarantees layout is done
+    if (document.readyState === 'complete') { start(); }
+    else { window.addEventListener('load', start); }
+  }
 
 });
 
-// ---- Console easter egg ----
-console.log('%c\uD83D\uDC31 kayvour.github.io\n%c\nMade with caffeine, poetry & way too many tabs open.\n\ngithub   \u2192 github.com/kayvour\nlinkedin \u2192 linkedin.com/in/kaivalya-vaidya\nemail    \u2192 kaivalyavaidya.work@gmail.com\npoetry   \u2192 @zephyrsofpoetry\n', 'color: #667eea; font-size: 1.4em; font-weight: bold;', 'color: #a0a0c0; font-size: 0.9em;');
+console.log('%c🐱 kayvour.github.io\n%c\ngithub   → github.com/kayvour\nlinkedin → linkedin.com/in/kaivalya-vaidya\nemail    → kaivalyavaidya.work@gmail.com',
+  'color:#e8d5a3;font-size:1.2em;font-weight:500;',
+  'color:#9a9a90;font-size:0.85em;');
+  
