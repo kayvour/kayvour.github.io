@@ -20,15 +20,14 @@
 ::-webkit-scrollbar       { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--line-s); border-radius: 2px; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background: #0a0a08; }
 
 body {
   font-family: 'Geist', sans-serif;
-  background: var(--bg);
+  background: transparent;
   color: var(--t1);
   line-height: 1.6;
   min-height: 100vh;
-  overflow-x: hidden;
   font-weight: 300;
 }
 
@@ -123,7 +122,7 @@ nav {
 .social-links a {
   display: flex; align-items: center; justify-content: center;
   width: 34px; height: 34px;
-  background: transparent; border: 1px solid var(--line);
+  background: var(--bg); border: 1px solid var(--line);
   border-radius: 4px; color: var(--t3); font-size: 0.9rem;
   text-decoration: none; transition: all 0.2s;
 }
@@ -177,3 +176,13 @@ footer { border-top: 1px solid var(--line); padding: 2rem 0; margin-top: 6rem; }
   .nav-links .hide-sm { display: none; }
   .logo { font-size: 0.72rem; }
 }
+
+/* ---- Page canvas ---- */
+#page-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+}
+/* all direct body children sit above canvas */

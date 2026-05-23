@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#0a0a08;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech — Kaivalya Vaidya</title>
+<meta name="description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta name="keywords" content="Kaivalya Vaidya projects, PolyOCR, YOLOv8, PaintMyPoem, Python, JavaScript, portfolio">
+<meta name="author" content="Kaivalya Vaidya">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kayvour.github.io/pages/tech.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tech Projects — Kaivalya Vaidya">
+<meta property="og:description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta property="og:url" content="https://kayvour.github.io/pages/tech.html">
+<meta property="og:image" content="https://kayvour.github.io/assets/favicon/apple-touch-icon.png">
+<meta property="og:site_name" content="Kaivalya Vaidya">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tech Projects — Kaivalya Vaidya">
+<meta name="twitter:description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta name="twitter:image" content="https://kayvour.github.io/assets/favicon/apple-touch-icon.png">
+<title>Tech / Kaivalya Vaidya</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
@@ -66,12 +81,81 @@
 .project-desc { color: var(--t2); font-size: 0.84rem; line-height: 1.65; flex: 1; font-weight: 300; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: auto; padding-top: 0.25rem; }
 @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
+
+/* ---- Project Modal ---- */
+.proj-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,10,8,0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.22s ease;
+}
+.proj-modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.proj-modal {
+  background: var(--bg-2);
+  border: 1px solid var(--line-s);
+  border-radius: 4px;
+  padding: 2.5rem;
+  max-width: 520px; width: 100%;
+  position: relative;
+  transform: translateY(14px);
+  transition: transform 0.22s ease;
+}
+.proj-modal-overlay.open .proj-modal { transform: translateY(0); }
+
+.proj-modal-close {
+  position: absolute; top: 1.1rem; right: 1.1rem;
+  background: transparent; border: 1px solid var(--line);
+  color: var(--t3); width: 30px; height: 30px;
+  border-radius: 3px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; transition: all 0.2s;
+}
+.proj-modal-close:hover { color: var(--t1); border-color: var(--line-s); }
+
+.proj-modal-badge {
+  font-family: 'Geist Mono', monospace; font-size: 0.6rem;
+  color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 0.6rem; display: block;
+}
+.proj-modal-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.7rem; font-weight: 400; color: var(--t1);
+  margin-bottom: 1rem;
+}
+.proj-modal-desc {
+  color: var(--t2); font-size: 0.88rem; line-height: 1.75;
+  font-weight: 300; margin-bottom: 1.5rem;
+}
+.proj-modal-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.75rem; }
+.proj-modal-links { display: flex; gap: 0.6rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.proj-modal-links a {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  padding: 0.5rem 1rem; border-radius: 3px;
+  font-family: 'Geist Mono', monospace; font-size: 0.75rem;
+  text-decoration: none; transition: all 0.2s;
+  border: 1px solid var(--line); color: var(--t2);
+}
+.proj-modal-links a:hover { border-color: var(--line-s); color: var(--t1); }
+.proj-modal-links a.primary { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+.proj-modal-links a.primary:hover { background: var(--gold); border-color: var(--gold); }
+
+/* card clickable cue */
+.project-card { cursor: pointer; }
+.project-card .project-body { position: relative; }
+
 </style>
 </head>
 <body>
+<canvas id="page-canvas"></canvas>
 <nav>
   <div class="nav-inner">
-    <a href="../index.html" class="logo">kv —</a>
+    <a href="../index.html" class="logo">Kaivalya Vaidya</a>
     <ul class="nav-links">
       <li><a href="../index.html">home</a></li>
       <li><a href="tech.html" class="active">tech</a></li>
@@ -87,7 +171,7 @@
   <div class="container">
     <span class="section-label">// tech</span>
     <h1 class="section-title">Things I've <em>built</em></h1>
-    <p style="color:var(--t2);max-width:520px;line-height:1.7;margin-top:0.75rem;font-size:0.9rem;font-weight:300;">A mix of tools, experiments, and side projects, mostly Python and frontend. Some useful, some just for fun.</p>
+    <p style="color:var(--t2);max-width:520px;line-height:1.7;margin-top:0.75rem;font-size:0.9rem;font-weight:300;">A mix of tools, experiments, and side projects.</p>
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">all (8)</button>
       <button class="filter-btn" data-filter="python">python</button>
@@ -102,9 +186,9 @@
   <div class="container">
     <div class="projects-grid" id="projectsGrid">
 
-      <div class="project-card fade-up" data-tags="python ml">
+      <div class="project-card fade-up" data-filter="python ml" data-name="PolyOCR-Bench" data-badge="featured / python / ml" data-desc="Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots." data-tags='[["tag", "Python"], ["tag cool", "OCR"], ["tag", "Benchmarking"], ["tag", "Multilingual"]]' data-github="https://github.com/kayvour/poly-ocr" data-live="">
         <div class="project-img">
-          <img src="../assets/screenshots/ocr.png" alt="PolyOCR-Bench" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://github.com/kayvour/poly-ocr" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://github.com/kayvour/poly-ocr" target="_blank" rel="noopener" aria-label="View PolyOCR-Bench" tabindex="-1"><img src="../assets/screenshots/ocr.png" alt="PolyOCR-Bench" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🔍</div>
           <span class="featured-badge">featured</span>
         </div>
@@ -118,9 +202,9 @@
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="python ml">
+      <div class="project-card fade-up" data-filter="python ml" data-name="UAV Pest Surveillance" data-badge="featured / python / ml" data-desc="Deep learning system for detecting crop pests via aerial drone imagery. YOLOv8-based pipeline achieving 85.5% accuracy across 12 insect classes. Supports day/night surveillance for precision agriculture." data-tags='[["tag", "Python"], ["tag cool", "YOLOv8"], ["tag", "Computer Vision"], ["tag soft", "Drone / UAV"]]' data-github="https://github.com/InvictusRex/UAV-Assisted-Agricultural-Pest-Surveillance" data-live="">
         <div class="project-img">
-          <img src="../assets/screenshots/uav-pest-surveillance.png" alt="UAV Pest Surveillance" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://github.com/InvictusRex/UAV-Assisted-Agricultural-Pest-Surveillance" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://github.com/InvictusRex/UAV-Assisted-Agricultural-Pest-Surveillance" target="_blank" rel="noopener" aria-label="View UAV Pest Surveillance" tabindex="-1"><img src="../assets/screenshots/uav-pest-surveillance.png" alt="UAV Pest Surveillance" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🚁</div>
           <span class="featured-badge">featured</span>
         </div>
@@ -134,9 +218,9 @@
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="python nlp">
+      <div class="project-card fade-up" data-filter="python nlp" data-name="PaintMyPoem" data-badge="featured / python / nlp" data-desc="Transforms poems into abstract art using NLP and sentiment analysis. Analyzes tone and imagery to map them to shapes and colors, a visual representation of poetic emotion." data-tags='[["tag", "Python"], ["tag soft", "NLP"], ["tag soft", "Sentiment Analysis"], ["tag", "Data Viz"]]' data-github="https://github.com/kayvour/PaintMyPoem" data-live="">
         <div class="project-img">
-          <img src="../assets/screenshots/PaintMyPoem.png" alt="PaintMyPoem" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://github.com/kayvour/PaintMyPoem" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://github.com/kayvour/PaintMyPoem" target="_blank" rel="noopener" aria-label="View PaintMyPoem" tabindex="-1"><img src="../assets/screenshots/PaintMyPoem.png" alt="PaintMyPoem" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🎨</div>
           <span class="featured-badge">featured</span>
         </div>
@@ -145,14 +229,14 @@
             <h3 class="project-name">PaintMyPoem</h3>
             <div class="project-links-row"><a href="https://github.com/kayvour/PaintMyPoem" target="_blank"><i class="fab fa-github"></i></a></div>
           </div>
-          <p class="project-desc">Transforms poems into abstract art using NLP and sentiment analysis. Analyzes tone and imagery to map them to shapes and colors, a visual representation of poetic emotion.</p>
+          <p class="project-desc">Transforms poems into abstract art using NLP and sentiment analysis. Analyzes tone and imagery to map them to shapes and colors - a visual representation of poetic emotion.</p>
           <div class="project-tags"><span class="tag">Python</span><span class="tag soft">NLP</span><span class="tag soft">Sentiment Analysis</span><span class="tag">Data Viz</span></div>
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="frontend">
+      <div class="project-card fade-up" data-filter="frontend" data-name="Cooking Assistant" data-badge="featured / frontend" data-desc="Hands-free recipe companion using the Web Speech API. Follow step-by-step instructions, extract ingredients, and navigate recipes with voice commands." data-tags='[["tag warm", "JavaScript"], ["tag", "Web Speech API"], ["tag", "CSS"], ["tag", "Interactive UI"]]' data-github="https://github.com/kayvour/cooking-assistant" data-live="https://cooking-assistant-phi.vercel.app/">
         <div class="project-img">
-          <img src="../assets/screenshots/cooking-assistant.png" alt="Cooking Assistant" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://cooking-assistant-phi.vercel.app/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://cooking-assistant-phi.vercel.app/" target="_blank" rel="noopener" aria-label="View Cooking Assistant" tabindex="-1"><img src="../assets/screenshots/cooking-assistant.png" alt="Cooking Assistant" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🍳</div>
           <span class="featured-badge">featured</span>
         </div>
@@ -169,9 +253,9 @@
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="frontend">
+      <div class="project-card fade-up" data-filter="frontend" data-name="RouteCast" data-badge="frontend" data-desc="Travel assistant that fetches real-time weather forecasts for key points along a road trip route. Uses OpenRouteService for routing and OpenWeatherMap for hourly weather at each stop." data-tags='[["tag warm", "JavaScript"], ["tag", "React"], ["tag", "Express.js"], ["tag cool", "Weather API"]]' data-github="https://github.com/kayvour/routecast" data-live="">
         <div class="project-img">
-          <img src="../assets/screenshots/RouteCast.png" alt="RouteCast" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://github.com/kayvour/routecast" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://github.com/kayvour/routecast" target="_blank" rel="noopener" aria-label="View RouteCast" tabindex="-1"><img src="../assets/screenshots/RouteCast.png" alt="RouteCast" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🗺️</div>
         </div>
         <div class="project-body">
@@ -184,24 +268,24 @@
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="frontend">
+      <div class="project-card fade-up" data-filter="frontend" data-name="Mess Oracle" data-badge="frontend" data-desc="Daily hostel mess food verdict engine. Scores every menu item against your veg/spice/craving/fitness preferences, builds an optimal plate, breaks down macros, and tells you whether to eat in or go outside." data-tags='[["tag warm", "JavaScript"], ["tag", "HTML/CSS"], ["tag cool", "No Dependencies"], ["tag soft", "Nutrition"]]' data-github="https://github.com/kayvour/mess-oracle" data-live="https://kayvour.github.io/mess-oracle/">
         <div class="project-img">
-          <img src="../assets/screenshots/mess-oracle.png" alt="Mess Oracle" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://kayvour.github.io/mess-oracle/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://kayvour.github.io/mess-oracle/" target="_blank" rel="noopener" aria-label="View Mess Oracle" tabindex="-1"><img src="../assets/screenshots/mess-oracle.png" alt="Mess Oracle" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🍽️</div>
         </div>
         <div class="project-body">
           <div class="project-header">
             <h3 class="project-name">Mess Oracle</h3>
-            <div class="project-links-row"><a href="https://github.com/kayvour/mess-oracle" target="_blank"><i class="fab fa-github"></i></a></div>
+            <div class="project-links-row"><a href="https://github.com/kayvour/mess-oracle" target="_blank"><i class="fab fa-github"></i></a><a href="https://kayvour.github.io/mess-oracle/" target="_blank"><i class="fas fa-external-link-alt"></i></a></div>
           </div>
           <p class="project-desc">Daily hostel mess food verdict engine. Scores every menu item against your preferences, builds an optimal plate, breaks down macros, and tells you whether to eat in or go outside.</p>
           <div class="project-tags"><span class="tag warm">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag cool">No Dependencies</span><span class="tag soft">Nutrition</span></div>
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="frontend">
+      <div class="project-card fade-up" data-filter="frontend" data-name="GhostTerminal" data-badge="frontend" data-desc="Movie-style hacker terminal web app. Type anything and watch cinematic code snippets stream to screen in real time. Features real terminal commands, command history, and a boot-up sequence." data-tags='[["tag warm", "JavaScript"], ["tag", "HTML/CSS"], ["tag cool", "Live Demo"]]' data-github="https://github.com/kayvour/ghost-terminal" data-live="https://kayvour.github.io/ghost-terminal/">
         <div class="project-img">
-          <img src="../assets/screenshots/ghost-terminal.png" alt="GhostTerminal" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://kayvour.github.io/ghost-terminal/" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://kayvour.github.io/ghost-terminal/" target="_blank" rel="noopener" aria-label="View GhostTerminal" tabindex="-1"><img src="../assets/screenshots/ghost-terminal.png" alt="GhostTerminal" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">💻</div>
         </div>
         <div class="project-body">
@@ -217,9 +301,9 @@
         </div>
       </div>
 
-      <div class="project-card fade-up" data-tags="python">
+      <div class="project-card fade-up" data-filter="python" data-name="philosophy-days" data-badge="python" data-desc="Python tool that fetches philosopher birthdays, global ethics observances, and philosophy-related days for any given month and year. YAML-based data with support for fixed and floating holidays." data-tags='[["tag", "Python"], ["tag soft", "PyYAML"], ["tag", "CLI"]]' data-github="https://github.com/kayvour/philosophy-days" data-live="">
         <div class="project-img">
-          <img src="../assets/screenshots/philosophy.png" alt="philosophy-days" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <a href="https://github.com/kayvour/philosophy-days" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><a href="https://github.com/kayvour/philosophy-days" target="_blank" rel="noopener" aria-label="View philosophy-days" tabindex="-1"><img src="../assets/screenshots/philosophy.png" alt="philosophy-days" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a></a>
           <div class="project-img-placeholder" style="display:none">🏛️</div>
         </div>
         <div class="project-body">
@@ -236,14 +320,79 @@
   </div>
 </section>
 
+<section style="padding:5rem 0;border-bottom:1px solid var(--line);">
+  <div class="container">
+    <span class="section-label">// tech stack</span>
+    <h2 class="section-title">Tools &amp; <em>Technologies</em></h2>
+ 
+    <div style="display:flex;flex-direction:column;gap:2rem;margin-top:2.5rem;">
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">languages</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag warm">Python</span><span class="tag warm">JavaScript</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Markdown</span>
+        </div>
+      </div>
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">frameworks &amp; web</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag cool">React</span><span class="tag cool">HTML5</span><span class="tag cool">CSS3</span><span class="tag cool">Flask</span><span class="tag cool">REST APIs</span><span class="tag cool">Web Speech API</span>
+        </div>
+      </div>
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">ai / ml</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag soft">PyTorch</span><span class="tag soft">Hugging Face Transformers</span><span class="tag soft">CLIP</span><span class="tag soft">YOLOv8</span><span class="tag soft">Ultralytics</span><span class="tag soft">OpenCV</span><span class="tag soft">EasyOCR</span><span class="tag soft">Tesseract OCR</span><span class="tag soft">NLTK</span><span class="tag soft">TextBlob</span>
+        </div>
+      </div>
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">data &amp; viz</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag warm">NumPy</span><span class="tag warm">Pandas</span><span class="tag warm">scikit-learn</span><span class="tag warm">Matplotlib</span>
+        </div>
+      </div>
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">databases &amp; infra</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">Firebase</span><span class="tag cool">Vercel</span><span class="tag">Git</span><span class="tag">GitHub</span>
+        </div>
+      </div>
+ 
+      <div class="fade-up">
+        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">tools &amp; other</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag">VS Code</span><span class="tag soft">Figma</span><span class="tag soft">Canva</span><span class="tag soft">UI/UX Design</span><span class="tag warm">Ahrefs</span><span class="tag warm">Microsoft Clarity</span><span class="tag warm">Google Ads</span><span class="tag">OSINT</span>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
-    <p>© 2026 kaivalya vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+    <p>© 2026 kaivalya vaidya - made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
     <p>🐱 supervised by the cat</p>
   </div>
 </footer>
 
 <div id="floatingCat">🐱</div>
+
+<div class="proj-modal-overlay" id="projModal">
+  <div class="proj-modal">
+    <button class="proj-modal-close" id="projModalClose"><i class="fas fa-times"></i></button>
+    <span class="proj-modal-badge" id="projModalBadge"></span>
+    <h2 class="proj-modal-title" id="projModalTitle"></h2>
+    <p class="proj-modal-desc" id="projModalDesc"></p>
+    <div class="proj-modal-tags" id="projModalTags"></div>
+    <div class="proj-modal-links" id="projModalLinks"></div>
+  </div>
+</div>
+
 <script src="../js/main.js"></script>
 <script>
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -254,11 +403,67 @@
       btn.classList.add('active');
       const f = btn.dataset.filter;
       cards.forEach(c => {
-        const show = f === 'all' || (c.dataset.tags||'').split(' ').includes(f);
+        const show = f === 'all' || (c.dataset.filter||'').split(' ').includes(f);
         c.style.display = show ? '' : 'none';
       });
     });
   });
+</script>
+<script>
+(function() {
+  var overlay = document.getElementById('projModal');
+  var closeBtn = document.getElementById('projModalClose');
+
+  function openModal(card) {
+    document.getElementById('projModalBadge').textContent = '// ' + card.dataset.badge;
+    document.getElementById('projModalTitle').textContent = card.dataset.name;
+    document.getElementById('projModalDesc').textContent  = card.dataset.desc;
+
+    var tagsEl = document.getElementById('projModalTags');
+    tagsEl.innerHTML = '';
+    JSON.parse(card.dataset.tags).forEach(function(t) {
+      var s = document.createElement('span');
+      s.className = t[0]; s.textContent = t[1];
+      tagsEl.appendChild(s);
+    });
+
+    var linksEl = document.getElementById('projModalLinks');
+    linksEl.innerHTML = '';
+    if (card.dataset.github) {
+      var a = document.createElement('a');
+      a.href = card.dataset.github; a.target = '_blank';
+      a.innerHTML = '<i class="fab fa-github"></i> GitHub';
+      linksEl.appendChild(a);
+    }
+    if (card.dataset.live) {
+      var b = document.createElement('a');
+      b.href = card.dataset.live; b.target = '_blank';
+      b.className = 'primary';
+      b.innerHTML = '<i class="fas fa-external-link-alt"></i> Live Demo';
+      linksEl.appendChild(b);
+    }
+
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.project-card').forEach(function(card) {
+    card.addEventListener('click', function(e) {
+      // don't trigger if clicking the icon link buttons (github/live)
+      if (e.target.closest('.project-links-row')) return;
+      openModal(card);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+})();
 </script>
 </body>
 </html>

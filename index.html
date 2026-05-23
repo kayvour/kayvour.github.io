@@ -1,292 +1,539 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background:#0a0a08;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="CS student building things in AI/ML and frontend. Runner, poet, based in India.">
+<meta name="keywords" content="Kaivalya Vaidya, kayvour, AI ML, frontend developer, Python, portfolio">
+<meta name="author" content="Kaivalya Vaidya">
+
 <title>Kaivalya Vaidya</title>
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+
+<link rel="icon" type="image/svg+xml" href="./assets/favicon/favicon.svg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
+
+<link rel="stylesheet" href="./css/main.css">
+
 <style>
+
 /* HERO */
+
 .hero {
   min-height: 100vh;
-  display: flex; align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
   position: relative;
   border-bottom: 1px solid var(--line);
-  overflow: hidden;
 }
-#hero-canvas {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  pointer-events: none; z-index: 0;
-}
+
 .hero-inner {
-  position: relative; z-index: 1;
-  width: 100%; max-width: 1100px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
   margin: 0 auto;
   padding: calc(var(--nav-h) + 6rem) 2rem 5rem;
+
   display: grid;
   grid-template-columns: 1fr 260px;
-  gap: 4rem; align-items: end;
+  gap: 4rem;
+  align-items: end;
 }
+
 .hero-kicker {
   font-family: 'Geist Mono', monospace;
-  font-size: 0.72rem; color: var(--t3);
-  letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--t3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   margin-bottom: 2rem;
-  opacity: 0; animation: riseUp 0.6s ease 0.1s forwards;
+
+  opacity: 0;
+  animation: riseUp 0.6s ease 0.1s forwards;
 }
+
 .hero-name {
   font-family: 'Instrument Serif', serif;
   font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 400; line-height: 0.95;
+  font-weight: 400;
+  line-height: 0.95;
   letter-spacing: -0.02em;
   margin-bottom: 2rem;
-  opacity: 0; animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+
+  opacity: 0;
+  animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
 }
-.hero-name .line2 { display: block; color: var(--gold); font-style: italic; }
+
+.hero-name .line2 {
+  display: block;
+  color: var(--gold);
+  font-style: italic;
+}
+
 .hero-chips {
-  display: flex; flex-wrap: wrap; gap: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
   margin-bottom: 2rem;
-  opacity: 0; animation: riseUp 0.6s ease 0.35s forwards;
+
+  opacity: 0;
+  animation: riseUp 0.6s ease 0.35s forwards;
 }
+
 .chip {
-  display: inline-flex; align-items: center; gap: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
   padding: 0.3rem 0.75rem;
-  border: 1px solid var(--line); border-radius: 3px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+
   font-family: 'Geist Mono', monospace;
-  font-size: 0.7rem; color: var(--t3);
+  font-size: 0.7rem;
+  color: var(--t3);
+
   transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
-.chip:hover { border-color: var(--line-s); color: var(--t2); transform: translateY(-2px); }
-.chip i { font-size: 0.65rem; }
+
+.chip:hover {
+  border-color: var(--line-s);
+  color: var(--t2);
+  transform: translateY(-2px);
+}
+
+.chip i {
+  font-size: 0.65rem;
+}
+
 .hero-bio {
-  color: var(--t2); font-size: 0.9rem; line-height: 1.75;
-  font-weight: 300; max-width: 480px; margin-bottom: 2.5rem;
-  opacity: 0; animation: riseUp 0.6s ease 0.45s forwards;
+  color: var(--t2);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+
+  opacity: 0;
+  animation: riseUp 0.6s ease 0.45s forwards;
 }
+
 .hero-actions {
-  display: flex; gap: 0.75rem; flex-wrap: wrap;
-  opacity: 0; animation: riseUp 0.6s ease 0.55s forwards;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+
+  opacity: 0;
+  animation: riseUp 0.6s ease 0.55s forwards;
 }
+
 .hero-socials {
-  display: flex; gap: 0.5rem; margin-top: 1.5rem;
-  opacity: 0; animation: riseUp 0.6s ease 0.65s forwards;
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+
+  opacity: 0;
+  animation: riseUp 0.6s ease 0.65s forwards;
 }
 
 /* NOW CARD */
+
 .now-card {
-  background: var(--bg-2); border: 1px solid var(--line);
-  border-radius: 4px; padding: 1.5rem;
-  opacity: 0; animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1.5rem;
+
+  opacity: 0;
+  animation: riseUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
 }
+
 .now-card-label {
-  font-family: 'Geist Mono', monospace; font-size: 0.62rem;
-  color: var(--t3); letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--t3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   margin-bottom: 1.2rem;
 }
+
 .now-item {
-  display: flex; align-items: flex-start; gap: 0.85rem;
-  padding: 0.75rem 0; border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
 }
-.now-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.now-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
 .now-dot {
-  width: 6px; height: 6px; border-radius: 50%; margin-top: 0.35rem; flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
 }
+
 .now-dot.blue  { background: var(--teal); }
 .now-dot.pink  { background: var(--mauve); }
 .now-dot.gold  { background: var(--gold); }
+
 .now-item-text small {
-  display: block; font-family: 'Geist Mono', monospace;
-  font-size: 0.6rem; color: var(--t3); letter-spacing: 0.08em;
-  text-transform: uppercase; margin-bottom: 0.2rem;
+  display: block;
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--t3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
 }
-.now-item-text span { font-size: 0.82rem; color: var(--t2); font-weight: 300; }
 
-/* WORLD SECTION */
+.now-item-text span {
+  font-size: 0.82rem;
+  color: var(--t2);
+  font-weight: 300;
+}
+
+/* WORLD */
+
 .world-section {
-  padding: 5rem 0; border-bottom: 1px solid var(--line);
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--line);
 }
-.world-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; margin-top: 3rem;
-  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
-}
-.world-card {
-  background: var(--bg-2); padding: 2rem;
-  border-right: 1px solid var(--line);
-  transition: background 0.2s; text-decoration: none; display: block;
-}
-.world-card:hover { background: var(--bg-3); }
-.world-card-icon {
-  width: 38px; height: 38px; border-radius: 3px;
-  border: 1px solid var(--line); display: flex;
-  align-items: center; justify-content: center;
-  font-size: 0.9rem; margin-bottom: 1.25rem;
-}
-.world-card-icon.gold  { color: var(--gold);  border-color: rgba(232,213,163,0.2); background: rgba(232,213,163,0.06); }
-.world-card-icon.teal  { color: var(--teal);  border-color: rgba(168,196,184,0.2); background: rgba(168,196,184,0.06); }
-.world-card-icon.mauve { color: var(--mauve); border-color: rgba(196,168,184,0.2); background: rgba(196,168,184,0.06); }
-.world-card h3 {
-  font-family: 'Instrument Serif', serif; font-size: 1.15rem;
-  font-weight: 400; color: var(--t1); margin-bottom: 0.5rem;
-}
-.world-card p { font-size: 0.82rem; color: var(--t3); line-height: 1.6; margin-bottom: 1.25rem; }
-.world-link {
-  font-family: 'Geist Mono', monospace; font-size: 0.68rem;
-  color: var(--t3); display: flex; align-items: center; gap: 0.35rem;
-  transition: color 0.2s;
-}
-.world-card:hover .world-link { color: var(--t2); }
-.world-card:hover .world-link i { transform: translateX(3px); }
-.world-link i { transition: transform 0.2s; }
 
-/* FEATURED PROJECTS */
-.featured-section { padding: 5rem 0; border-bottom: 1px solid var(--line); }
-.projects-row {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; margin-top: 2.5rem;
-  border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+.world-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  margin-top: 3rem;
+
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
 }
-.proj-card {
-  background: var(--bg-2); padding: 1.75rem;
+
+.world-card {
+  background: var(--bg-2);
+  padding: 2rem;
   border-right: 1px solid var(--line);
-  display: flex; flex-direction: column; gap: 0.75rem;
+
+  transition: background 0.2s;
+  text-decoration: none;
+  display: block;
+}
+
+.world-card:hover {
+  background: var(--bg-3);
+}
+
+.world-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.world-card-icon.gold {
+  color: var(--gold);
+  border-color: rgba(232,213,163,0.2);
+  background: rgba(232,213,163,0.06);
+}
+
+.world-card-icon.teal {
+  color: var(--teal);
+  border-color: rgba(168,196,184,0.2);
+  background: rgba(168,196,184,0.06);
+}
+
+.world-card-icon.mauve {
+  color: var(--mauve);
+  border-color: rgba(196,168,184,0.2);
+  background: rgba(196,168,184,0.06);
+}
+
+.world-card h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--t1);
+  margin-bottom: 0.5rem;
+}
+
+.world-card p {
+  font-size: 0.82rem;
+  color: var(--t3);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.world-link {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--t3);
+
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.featured-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.projects-row {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 1px;
+  margin-top: 2.5rem;
+
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.proj-card {
+  background: var(--bg-2);
+  padding: 1.75rem;
+  border-right: 1px solid var(--line);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
   transition: background 0.2s;
 }
-.proj-card:hover { background: var(--bg-3); }
-.proj-num {
-  font-family: 'Geist Mono', monospace; font-size: 0.65rem;
-  color: var(--t3); letter-spacing: 0.08em;
-}
-.proj-name {
-  font-family: 'Instrument Serif', serif; font-size: 1.15rem;
-  font-weight: 400; color: var(--t1);
-}
-.proj-desc { font-size: 0.82rem; color: var(--t3); line-height: 1.65; flex: 1; font-weight: 300; }
-.proj-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; }
-.proj-links { display: flex; gap: 0.4rem; margin-top: 0.5rem; }
-.proj-links a {
-  width: 28px; height: 28px; display: flex; align-items: center;
-  justify-content: center; border: 1px solid var(--line); border-radius: 3px;
-  color: var(--t3); font-size: 0.75rem; text-decoration: none; transition: all 0.2s;
-}
-.proj-links a:hover { border-color: var(--line-s); color: var(--t1); }
 
-/* KEYFRAMES */
+.proj-card:hover {
+  background: var(--bg-3);
+}
+
+.proj-num {
+  font-family: 'Geist Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--t3);
+  letter-spacing: 0.08em;
+}
+
+.proj-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--t1);
+}
+
+.proj-desc {
+  font-size: 0.82rem;
+  color: var(--t3);
+  line-height: 1.65;
+  flex: 1;
+  font-weight: 300;
+}
+
+.proj-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: auto;
+}
+
+.proj-links {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.proj-links a {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line);
+  border-radius: 3px;
+
+  color: var(--t3);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
 @keyframes riseUp {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 900px) {
-  .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .now-card { display: none; }
-  .world-grid { grid-template-columns: 1fr; }
-  .projects-row { grid-template-columns: 1fr; }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .now-card {
+    display: none;
+  }
+
+  .world-grid,
+  .projects-row {
+    grid-template-columns: 1fr;
+  }
 }
+
 @media (max-width: 560px) {
-  .hero-name { font-size: clamp(2.8rem,12vw,3.5rem); }
+
+  .hero-name {
+    font-size: clamp(2.8rem,12vw,3.5rem);
+  }
 }
+
 </style>
 </head>
+
 <body>
+
+<canvas id="page-canvas"></canvas>
 
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo">Kaivalya Vaidya</a>
+    <a href="./index.html" class="logo">Kaivalya Vaidya</a>
+
     <ul class="nav-links">
-      <li><a href="index.html" class="active">home</a></li>
-      <li><a href="pages/tech.html">tech</a></li>
-      <li><a href="pages/poetry.html">poetry</a></li>
-      <li><a href="pages/running.html">fitness</a></li>
-      <li><a href="pages/contact.html">contact</a></li>
+      <li><a href="./index.html" class="active">home</a></li>
+      <li><a href="./pages/tech.html">tech</a></li>
+      <li><a href="./pages/poetry.html">poetry</a></li>
+      <li><a href="./pages/running.html">fitness</a></li>
+      <li><a href="./pages/contact.html">contact</a></li>
       <li><a href="#" class="nav-pill resume-link hide-sm">resume ↗</a></li>
     </ul>
   </div>
 </nav>
 
 <section class="hero">
-  <canvas id="hero-canvas"></canvas>
   <div class="hero-inner">
+
     <div class="hero-left">
-      <div class="hero-kicker">// cs student · builder · runner · poet</div>
-      <h1 class="hero-name">Kaivalya<span class="line2">Vaidya</span></h1>
+
+      <div class="hero-kicker">
+        // cs student · builder · runner · poet
+      </div>
+
+      <h1 class="hero-name">
+        Kaivalya
+        <span class="line2">Vaidya</span>
+      </h1>
+
       <div class="hero-chips">
-        <span class="chip"><i class="fas fa-code"></i> AI / ML</span>
-        <span class="chip"><i class="fas fa-layer-group"></i> Frontend</span>
+        <span class="chip"><i class="fas fa-microchip"></i> AI / ML</span>
+        <span class="chip"><i class="fas fa-laptop-code"></i> Software Engineering</span>
         <span class="chip"><i class="fas fa-running"></i> Distance Running</span>
         <span class="chip"><i class="fas fa-feather-alt"></i> Poetry</span>
-        <span class="chip"><i class="fas fa-location"></i>  India</span>
+        <span class="chip"><i class="fas fa-location-dot"></i> India</span>
       </div>
-      <p class="hero-bio">CS student interested in AI/ML, frontend development, and building things that are either useful, interesting, or both. I also run long distances and write poetry, sometimes at the same time.</p>
+
+      <p class="hero-bio">
+        CS student interested in AI/ML, frontend development, and building things that are either useful, interesting or both.
+      </p>
+
       <div class="hero-actions">
-        <a href="pages/tech.html" class="btn btn-primary">View Projects</a>
-        <a href="pages/contact.html" class="btn btn-ghost">Get in Touch</a>
-        <a href="#" class="btn btn-ghost resume-link">Resume ↗</a>
+        <a href="./pages/tech.html" class="btn btn-primary">View Projects</a>
+        <a href="./pages/contact.html" class="btn btn-ghost">Get in Touch</a>
       </div>
+
       <div class="hero-socials">
         <div class="social-links">
-          <a href="mailto:kaivalyavaidya.work@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-          <a href="https://github.com/kayvour" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-          <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:kaivalyavaidya.work@gmail.com"><i class="fas fa-envelope"></i></a>
+          <a href="https://github.com/kayvour" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="https://www.linkedin.com/in/kaivalya-vaidya/" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/zephyrsofpoetry" target="_blank"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
+
     </div>
+
     <div class="now-card">
+
       <div class="now-card-label">// now</div>
+
       <div class="now-item">
         <div class="now-dot blue"></div>
+
         <div class="now-item-text">
           <small>building</small>
-          <span>PolyOCR-Bench — multilingual OCR benchmarking</span>
+          <span>PolyOCR-Bench</span>
         </div>
       </div>
+
       <div class="now-item">
         <div class="now-dot pink"></div>
+
         <div class="now-item-text">
           <small>writing</small>
-          <span>New poems at @zephyrsofpoetry</span>
+          <span>New poems</span>
         </div>
       </div>
+
       <div class="now-item">
         <div class="now-dot gold"></div>
+
         <div class="now-item-text">
           <small>training</small>
-          <span>654.8 km logged on Strava</span>
+          <span>662.8 km logged</span>
         </div>
       </div>
+
     </div>
+
   </div>
 </section>
 
 <section class="world-section">
   <div class="container">
     <span class="section-label">// my world</span>
-    <h2 class="section-title">Three <em>worlds</em></h2>
+    <h2 class="section-title">More than just <em>code</em></h2>
     <div class="world-grid">
       <a href="pages/tech.html" class="world-card fade-up">
         <div class="world-card-icon gold"><i class="fas fa-terminal"></i></div>
         <h3>Tech</h3>
-        <p>Python, ML, frontend. Eight projects and counting. Some useful, some just for fun.</p>
+        <p>Python, ML, frontend. Some useful, some just for fun.</p>
         <span class="world-link">view projects <i class="fas fa-arrow-right"></i></span>
       </a>
       <a href="pages/poetry.html" class="world-card fade-up">
         <div class="world-card-icon mauve"><i class="fas fa-feather-alt"></i></div>
         <h3>Poetry</h3>
-        <p>Words on ceilings and bad lighting. Five poems here, more at @zephyrsofpoetry.</p>
+        <p>Words on ceilings and bad lighting. Some selected poems here, more at @zephyrsofpoetry.</p>
         <span class="world-link">read poems <i class="fas fa-arrow-right"></i></span>
       </a>
       <a href="pages/running.html" class="world-card fade-up">
         <div class="world-card-icon teal"><i class="fas fa-running"></i></div>
         <h3>Fitness</h3>
-        <p>654.8 km on foot. Distance running and lifting. Both hurt. Both voluntary.</p>
+        <p>662.8 km on foot. Distance running and lifting. Both hurt. Both voluntary.</p>
         <span class="world-link">see stats <i class="fas fa-arrow-right"></i></span>
       </a>
     </div>
@@ -299,7 +546,7 @@
     <h2 class="section-title">Things I've <em>built</em></h2>
     <div class="projects-row">
       <div class="proj-card fade-up">
-        <div class="proj-num">01 — featured</div>
+        <div class="proj-num">01, featured</div>
         <div class="proj-name">PolyOCR-Bench</div>
         <p class="proj-desc">Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics and exports results as CSV, JSON, and comparison plots.</p>
         <div class="proj-tags">
@@ -310,9 +557,9 @@
         </div>
       </div>
       <div class="proj-card fade-up">
-        <div class="proj-num">02 — featured</div>
+        <div class="proj-num">02, featured</div>
         <div class="proj-name">PaintMyPoem</div>
-        <p class="proj-desc">Transforms poems into abstract art using NLP and sentiment analysis. Maps tone and imagery to shapes and colors — a visual representation of poetic emotion.</p>
+        <p class="proj-desc">Transforms poems into abstract art using NLP and sentiment analysis. Maps tone and imagery to shapes and colors, a visual representation of poetic emotion.</p>
         <div class="proj-tags">
           <span class="tag">Python</span><span class="tag soft">NLP</span><span class="tag soft">Sentiment</span>
         </div>
@@ -321,7 +568,7 @@
         </div>
       </div>
       <div class="proj-card fade-up">
-        <div class="proj-num">03 — featured</div>
+        <div class="proj-num">03, featured</div>
         <div class="proj-name">Cooking Assistant</div>
         <p class="proj-desc">Hands-free recipe companion using the Web Speech API. Follow step-by-step instructions and navigate recipes entirely by voice.</p>
         <div class="proj-tags">
@@ -339,67 +586,17 @@
   </div>
 </section>
 
-<section style="padding:5rem 0;border-bottom:1px solid var(--line);">
-  <div class="container">
-    <span class="section-label">// tech stack</span>
-    <h2 class="section-title">Tools &amp; <em>Technologies</em></h2>
-
-    <div style="display:flex;flex-direction:column;gap:2rem;margin-top:2.5rem;">
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">languages</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag warm">Python</span><span class="tag warm">JavaScript</span><span class="tag">C</span><span class="tag">C++</span><span class="tag">Bash</span><span class="tag">SQL</span><span class="tag">Markdown</span>
-        </div>
-      </div>
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">frameworks &amp; web</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag cool">React</span><span class="tag cool">HTML5</span><span class="tag cool">CSS3</span><span class="tag cool">Flask</span><span class="tag cool">REST APIs</span><span class="tag cool">Web Speech API</span>
-        </div>
-      </div>
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">ai / ml</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag soft">PyTorch</span><span class="tag soft">Hugging Face Transformers</span><span class="tag soft">CLIP</span><span class="tag soft">YOLOv8</span><span class="tag soft">Ultralytics</span><span class="tag soft">OpenCV</span><span class="tag soft">EasyOCR</span><span class="tag soft">Tesseract OCR</span><span class="tag soft">NLTK</span><span class="tag soft">TextBlob</span>
-        </div>
-      </div>
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">data &amp; viz</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag warm">NumPy</span><span class="tag warm">Pandas</span><span class="tag warm">scikit-learn</span><span class="tag warm">Matplotlib</span>
-        </div>
-      </div>
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">databases &amp; infra</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag">MongoDB</span><span class="tag">MySQL</span><span class="tag">Firebase</span><span class="tag cool">Vercel</span><span class="tag">Git</span><span class="tag">GitHub</span>
-        </div>
-      </div>
-
-      <div class="fade-up">
-        <div style="font-family:'Geist Mono',monospace;font-size:0.62rem;color:var(--t3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">tools &amp; other</div>
-        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span class="tag">VS Code</span><span class="tag soft">Figma</span><span class="tag soft">Canva</span><span class="tag soft">UI/UX Design</span><span class="tag warm">Ahrefs</span><span class="tag warm">Microsoft Clarity</span><span class="tag warm">Google Ads</span><span class="tag">OSINT</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
 
 <footer>
   <div class="footer-inner">
-    <p>© 2026 kaivalya vaidya — made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
+    <p>© 2026 kaivalya vaidya - made with <i class="fas fa-heart"></i> and <i class="fas fa-coffee"></i></p>
     <p>🐱 supervised by the cat</p>
   </div>
 </footer>
 
 <div id="floatingCat">🐱</div>
-<script src="js/main.js"></script>
+
+<script src="./js/main.js"></script>
+
 </body>
 </html>
