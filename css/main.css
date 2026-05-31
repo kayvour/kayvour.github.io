@@ -185,4 +185,3 @@ footer { border-top: 1px solid var(--line); padding: 2rem 0; margin-top: 6rem; }
   pointer-events: none;
   z-index: -1;
 }
-/* all direct body children sit above canvas */
