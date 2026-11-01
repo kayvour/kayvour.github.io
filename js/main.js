@@ -1,5 +1,48 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  const root = document.documentElement;
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch (error) {}
+    document.querySelectorAll('.theme-toggle').forEach(button => {
+      const isLight = theme === 'light';
+      button.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+      button.innerHTML = isLight
+        ? '<i class="fas fa-moon"></i><span>dark</span>'
+        : '<i class="fas fa-sun"></i><span>light</span>';
+    });
+  }
+
+  function getPreferredTheme() {
+    try {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    } catch (error) {}
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  document.querySelectorAll('.nav-links').forEach(list => {
+    if (list.querySelector('.theme-toggle')) return;
+    const item = document.createElement('li');
+    item.className = 'nav-item';
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'theme-toggle';
+    button.setAttribute('aria-label', 'Toggle color theme');
+    item.appendChild(button);
+    list.appendChild(item);
+  });
+
+  applyTheme(getPreferredTheme());
+
+  document.querySelectorAll('.theme-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const nextTheme = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(nextTheme);
+    });
+  });
+
   // ---- Scroll fade-in ----
   document.querySelectorAll('.fade-up').forEach(el => {
     const siblings = Array.from(el.parentElement.children).filter(c => c.classList.contains('fade-up'));

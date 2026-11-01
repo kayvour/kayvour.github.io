@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#0a0a08;">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function () {
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (error) {}
+  })();
+</script>
 <meta name="description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
 <meta name="keywords" content="Kaivalya Vaidya projects, PolyOCR, YOLOv8, PaintMyPoem, Python, JavaScript, portfolio">
 <meta name="author" content="Kaivalya Vaidya">
@@ -85,7 +95,7 @@
 /* ---- Project Modal ---- */
 .proj-modal-overlay {
   position: fixed; inset: 0;
-  background: rgba(10,10,8,0.88);
+  background: var(--modal-backdrop);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 2000;

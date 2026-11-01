@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#0a0a08;">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function () {
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (error) {}
+  })();
+</script>
 <meta name="description" content="Poetry by Kaivalya Vaidya. Verses on distance, light, and quiet things. Also at @zephyrsofpoetry.">
 <meta name="keywords" content="Kaivalya Vaidya poetry, zephyrsofpoetry, poems, Indian poet">
 <meta name="author" content="Kaivalya Vaidya">
@@ -52,7 +62,7 @@
 .btn-instagram { background: transparent; color: var(--mauve); border: 1px solid rgba(196,168,184,0.3); display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1.1rem; border-radius: 3px; text-decoration: none; font-family: 'Geist Mono', monospace; font-size: 0.78rem; white-space: nowrap; transition: all 0.2s; }
 .btn-instagram:hover { background: rgba(196,168,184,0.08); border-color: var(--mauve); }
 /* Modal */
-.poem-modal-overlay { position: fixed; inset: 0; background: rgba(10,10,8,0.85); backdrop-filter: blur(12px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+.poem-modal-overlay { position: fixed; inset: 0; background: var(--modal-backdrop); backdrop-filter: blur(12px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
 .poem-modal-overlay.open { opacity: 1; pointer-events: all; }
 .poem-modal { background: var(--bg-2); border: 1px solid var(--line-s); border-radius: 4px; padding: 3rem; max-width: 580px; width: 100%; max-height: 85vh; overflow-y: auto; transform: translateY(16px); transition: transform 0.25s ease; position: relative; }
 .poem-modal-overlay.open .poem-modal { transform: translateY(0); }

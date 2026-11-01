@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" style="background:#0a0a08;">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function () {
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = saved || (prefersLight ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (error) {}
+  })();
+</script>
 <meta name="description" content="Get in touch with Kaivalya Vaidya. Open to collaborations, internships, and good conversations.">
 <meta name="keywords" content="Kaivalya Vaidya contact, hire, collaborate, internship">
 <meta name="author" content="Kaivalya Vaidya">
