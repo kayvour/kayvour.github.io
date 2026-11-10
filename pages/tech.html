@@ -13,20 +13,20 @@
     } catch (error) {}
   })();
 </script>
-<meta name="description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
-<meta name="keywords" content="Kaivalya Vaidya projects, PolyOCR, YOLOv8, PaintMyPoem, Python, JavaScript, portfolio">
+<meta name="description" content="Projects by Kaivalya Vaidya: FocusPen, OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta name="keywords" content="Kaivalya Vaidya projects, FocusPen, PolyOCR, YOLOv8, PaintMyPoem, Python, JavaScript, portfolio">
 <meta name="author" content="Kaivalya Vaidya">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://kayvour.github.io/pages/tech.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tech Projects — Kaivalya Vaidya">
-<meta property="og:description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta property="og:description" content="Projects by Kaivalya Vaidya: FocusPen, OCR benchmarking, computer vision, NLP tools, and frontend apps.">
 <meta property="og:url" content="https://kayvour.github.io/pages/tech.html">
 <meta property="og:image" content="https://kayvour.github.io/assets/favicon/apple-touch-icon.png">
 <meta property="og:site_name" content="Kaivalya Vaidya">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tech Projects — Kaivalya Vaidya">
-<meta name="twitter:description" content="Projects by Kaivalya Vaidya: OCR benchmarking, computer vision, NLP tools, and frontend apps.">
+<meta name="twitter:description" content="Projects by Kaivalya Vaidya: FocusPen, OCR benchmarking, computer vision, NLP tools, and frontend apps.">
 <meta name="twitter:image" content="https://kayvour.github.io/assets/favicon/apple-touch-icon.png">
 <title>Tech / Kaivalya Vaidya</title>
 <link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
@@ -190,7 +190,7 @@
     <h1 class="section-title">Things I've <em>built</em></h1>
     <p style="color:var(--t2);max-width:520px;line-height:1.7;margin-top:0.75rem;font-size:0.9rem;font-weight:300;">A mix of tools, experiments, and side projects.</p>
     <div class="filter-bar">
-      <button class="filter-btn active" data-filter="all">all (8)</button>
+      <button class="filter-btn active" data-filter="all">all (9)</button>
       <button class="filter-btn" data-filter="python">python</button>
       <button class="filter-btn" data-filter="frontend">frontend</button>
       <button class="filter-btn" data-filter="nlp">nlp</button>
@@ -202,6 +202,22 @@
 <section class="projects-section">
   <div class="container">
     <div class="projects-grid" id="projectsGrid">
+
+      <div class="project-card fade-up" data-filter="python ml" data-name="FocusPen" data-badge="python / hardware / ml" data-desc="Hardware-focused research prototype for recognizing pen interactions from six-axis MPU6050 motion data. A temporal convolutional network classifies writing, fidgeting, idle, and gripping; the documented control layer explores context-aware haptic feedback through a DRV2605L and linear resonant actuator. The repository contains the initial notebook-based prototype, not a packaged production device." data-tags='[["tag", "Python"], ["tag cool", "IMU / MPU6050"], ["tag soft", "Temporal CNN"], ["tag warm", "Haptics"]]' data-github="https://github.com/kayvour/FocusPen" data-live="">
+        <div class="project-img">
+          <a href="https://github.com/kayvour/FocusPen" target="_blank" rel="noopener" aria-label="View FocusPen on GitHub" tabindex="-1"><img src="../assets/screenshots/focus-pen.png" alt="FocusPen hardware prototype" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"></a>
+          <div class="project-img-placeholder" style="display:none">✒</div>
+          <span class="featured-badge">research prototype</span>
+        </div>
+        <div class="project-body">
+          <div class="project-header">
+            <h3 class="project-name">FocusPen</h3>
+            <div class="project-links-row"><a href="https://github.com/kayvour/FocusPen" target="_blank" rel="noopener" aria-label="FocusPen on GitHub"><i class="fab fa-github"></i></a></div>
+          </div>
+          <p class="project-desc">Hardware-focused pen interaction prototype. Uses six-axis IMU data and a temporal convolutional network to classify writing, fidgeting, idle, and gripping, with context-aware haptic feedback explored in the control layer.</p>
+          <div class="project-tags"><span class="tag">Python</span><span class="tag cool">IMU / MPU6050</span><span class="tag soft">Temporal CNN</span><span class="tag warm">Haptics</span></div>
+        </div>
+      </div>
 
       <div class="project-card fade-up" data-filter="python ml" data-name="PolyOCR-Bench" data-badge="featured / python / ml" data-desc="Multilingual OCR benchmarking framework. Compares Tesseract and EasyOCR across languages using CER/WER metrics, measures inference time, and exports results as CSV, JSON, and comparison plots." data-tags='[["tag", "Python"], ["tag cool", "OCR"], ["tag", "Benchmarking"], ["tag", "Multilingual"]]' data-github="https://github.com/kayvour/poly-ocr" data-live="">
         <div class="project-img">
