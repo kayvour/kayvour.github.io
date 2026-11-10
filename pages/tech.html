@@ -487,8 +487,7 @@
 
   document.querySelectorAll('.project-card').forEach(function(card) {
     card.addEventListener('click', function(e) {
-      // don't trigger if clicking the icon link buttons (github/live)
-      if (e.target.closest('.project-links-row')) return;
+      if (e.target.closest('a')) return;
       openModal(card);
     });
   });
